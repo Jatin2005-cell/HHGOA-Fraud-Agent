@@ -1,0 +1,35 @@
+# Environment variables & secrets
+.env
+*.env
+!.env.example
+!example.env
+config/.env
+mcp/config/.env
+HHGOA-Fraud-Agent/mcp/config/.env
+
+# Python & IDE
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.idea/
+.vscode/
+*.swp
+
+# Temporary and log files
+*.log
+*.tmp
+*.part
+
+# Large Raw Datasets (Raw CSVs stored locally)
+# dataset/raw/*.csv
+.venv/
+.pytest_cache/
+node_modules/
+dist/
+.env
+# Ignore large dataset files
+*.csv
+HHGOA-Fraud-Agent/dataset/

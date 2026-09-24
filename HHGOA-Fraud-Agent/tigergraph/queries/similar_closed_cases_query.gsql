@@ -1,0 +1,56 @@
+// Query #4: similar_closed_cases_query
+// Purpose: Retrieve relevant historical case memories from ClosedCase vertices to ground
+// the agent with precedents, investigator notes, confirmed patterns, and past actions.
+// Traversal: Traverses ClosedCases filtered by customer, card, pattern typology, or device.
+// IMPORTANT: Only closed_cases_history.csv populates ClosedCase memory. Benchmark cases are isolated.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY similar_closed_cases_query(
+    STRING customer_id_filter = "",
+    STRING card_id_filter = "",
+    STRING pattern_filter = "",
+    FLOAT min_exposure = 0.0,
+    INT max_results = 10
+) FOR GRAPH FraudInvestigationGraph {
+
+    AllCases = {ClosedCase.*};
+
+    // Filter closed cases by relevant investigation signals
+    MatchedCases = SELECT cs FROM AllCases:cs
+                   WHERE (customer_id_filter == "" OR cs.customer_id == customer_id_filter)
+                     AND (card_id_filter == "" OR cs.card_id == card_id_filter)
+                     AND (pattern_filter == "" OR cs.pattern == pattern_filter)
+                     AND (cs.exposure_usd >= min_exposure)
+                   ORDER BY cs.opened_at DESC
+                   LIMIT max_results;
+
+    // Traverse to transactions involved in these matched cases
+    InvolvedTxns = SELECT t FROM MatchedCases:cs -(CASE_INVOLVES:e)-> Transaction:t;
+
+    // Traverse to cards targeted in these matched cases
+    TargetedCards = SELECT c FROM MatchedCases:cs -(CASE_ON_CARD:e)-> Card:c;
+
+    // Traverse to any connected cards in these cases
+    ConnectedCards = SELECT c FROM MatchedCases:cs -(CONNECTED_CARD:e)-> Card:c;
+
+    PRINT MatchedCases[
+        MatchedCases.case_id,
+        MatchedCases.customer_id,
+        MatchedCases.card_id,
+        MatchedCases.opened_at,
+        MatchedCases.closed_at,
+        MatchedCases.outcome,
+        MatchedCases.pattern,
+        MatchedCases.first_fraud_txn_id,
+        MatchedCases.n_txns,
+        MatchedCases.exposure_usd,
+        MatchedCases.actions_taken,
+        MatchedCases.report_filed,
+        MatchedCases.analyst_notes
+    ];
+
+    PRINT TargetedCards[TargetedCards.id, TargetedCards.card4, TargetedCards.card6];
+    PRINT ConnectedCards[ConnectedCards.id, ConnectedCards.card4, ConnectedCards.card6];
+    PRINT InvolvedTxns[InvolvedTxns.id, InvolvedTxns.amount, InvolvedTxns.channel, InvolvedTxns.ts];
+}

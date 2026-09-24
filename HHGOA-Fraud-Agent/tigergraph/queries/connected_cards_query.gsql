@@ -1,0 +1,58 @@
+// Query #7: connected_cards_query
+// Purpose: Given a target card under investigation, uncover other cards connected via:
+// 1. Same customer ownership (OWNS)
+// 2. Shared hardware / device profile fingerprint (FROM_DEVICE)
+// 3. Explicit historical case cross-reference (CONNECTED_CARD)
+// Supports Policy R6 (Shared origin monitoring) and R10 (Never block all cards unless >=2 compromised).
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY connected_cards_query(
+    VERTEX<Card> target_card
+) FOR GRAPH FraudInvestigationGraph {
+
+    Start = {target_card};
+
+    // 1. Cards owned by the same customer
+    OwnerCustomer = SELECT cust FROM Start:c -(<OWNS:e)- Customer:cust;
+    SameCustomerCards = SELECT c FROM OwnerCustomer:cust -(OWNS:e)-> Card:c
+                        WHERE c != target_card;
+
+    // 2. Cards sharing the same device profile
+    CardTxns = SELECT t FROM Start:c -(MADE:e)-> Transaction:t;
+    UsedDevices = SELECT d FROM CardTxns:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+    DeviceTxns = SELECT t FROM UsedDevices:d -(<FROM_DEVICE:e)- Transaction:t;
+    SharedDeviceCards = SELECT c FROM DeviceTxns:t -(<MADE:e)- Card:c
+                        WHERE c != target_card;
+
+    // 3. Cards connected through historical case records
+    ConnectedInCases = SELECT c FROM Start:c -(<CASE_ON_CARD:e)- ClosedCase:cs -(CONNECTED_CARD:e)-> Card:c
+                       WHERE c != target_card;
+
+    PRINT target_card.id AS target_card_id,
+          OwnerCustomer.size() AS owner_count,
+          SameCustomerCards.size() AS same_customer_cards_count,
+          SharedDeviceCards.size() AS shared_device_cards_count,
+          ConnectedInCases.size() AS case_connected_cards_count;
+
+    PRINT SameCustomerCards[
+        SameCustomerCards.id,
+        SameCustomerCards.card4,
+        SameCustomerCards.card6,
+        SameCustomerCards.status
+    ];
+
+    PRINT SharedDeviceCards[
+        SharedDeviceCards.id,
+        SharedDeviceCards.card4,
+        SharedDeviceCards.card6,
+        SharedDeviceCards.status
+    ];
+
+    PRINT ConnectedInCases[
+        ConnectedInCases.id,
+        ConnectedInCases.card4,
+        ConnectedInCases.card6,
+        ConnectedInCases.status
+    ];
+}

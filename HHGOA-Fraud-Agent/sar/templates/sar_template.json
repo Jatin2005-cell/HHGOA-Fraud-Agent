@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SuspiciousActivityReport",
+  "type": "object",
+  "required": [
+    "file",
+    "reason",
+    "narrative",
+    "subjects",
+    "total_amount_usd",
+    "activity_dates"
+  ],
+  "properties": {
+    "file": {
+      "type": "boolean",
+      "description": "Whether a formal SAR must be filed with the regulator."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Policy rule citation justifying filing or non-filing."
+    },
+    "narrative": {
+      "type": "string",
+      "description": "Comprehensive standalone legal narrative (who, what, when, where, how, why)."
+    },
+    "subjects": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of customer, card, merchant, or device entities identified."
+    },
+    "total_amount_usd": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Sum of unauthorized or suspicious transaction exposure."
+    },
+    "activity_dates": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 0,
+      "maxItems": 2,
+      "description": "Start and end dates in YYYY-MM-DD format."
+    }
+  }
+}

@@ -1,0 +1,101 @@
+// Query #5: transaction_investigation_query
+// Purpose: Given a target transaction (e.g. from case trigger), gather a complete 360-degree
+// graph investigation dossier: Customer, Card, DeviceProfile, BillingRegion, Purchaser/Recipient
+// EmailDomains, prior & next sequential transactions, and any associated historical ClosedCase records.
+// Output: Unified structured evidence packet for the AI fraud investigation agent.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY transaction_investigation_query(
+    VERTEX<Transaction> target_txn
+) FOR GRAPH FraudInvestigationGraph {
+
+    Start = {target_txn};
+
+    // 1. Payment Card & Customer
+    TargetCard = SELECT c FROM Start:t -(<MADE:e)- Card:c;
+    TargetCustomer = SELECT cust FROM TargetCard:c -(<OWNS:e)- Customer:cust;
+
+    // 2. Hardware / Device Fingerprint (online channel)
+    Device = SELECT d FROM Start:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+
+    // 3. Billing Region
+    Region = SELECT r FROM Start:t -(BILLED_IN:e)-> BillingRegion:r;
+
+    // 4. Email Domains
+    PurchaserEmail = SELECT ed FROM Start:t -(PURCHASER_EMAIL:e)-> EmailDomain:ed;
+    RecipientEmail = SELECT ed FROM Start:t -(RECIPIENT_EMAIL:e)-> EmailDomain:ed;
+
+    // 5. Sequential Neighboring Transactions on Same Card
+    PriorTxn = SELECT t FROM Start:t -(<NEXT_TRANSACTION:e)- Transaction:t;
+    NextTxn = SELECT t FROM Start:t -(NEXT_TRANSACTION:e)-> Transaction:t;
+
+    // 6. Connected Historical Cases (if this transaction or card was previously investigated)
+    InvolvedCase = SELECT cs FROM Start:t -(<CASE_INVOLVES:e)- ClosedCase:cs;
+    CardCases = SELECT cs FROM TargetCard:c -(<CASE_ON_CARD:e)- ClosedCase:cs;
+
+    PRINT Start[
+        Start.id,
+        Start.ts,
+        Start.amount,
+        Start.product_cd,
+        Start.channel,
+        Start.risk_score,
+        Start.addr1,
+        Start.addr2,
+        Start.dist1,
+        Start.dist2,
+        Start.p_emaildomain,
+        Start.r_emaildomain,
+        Start.m_flags
+    ];
+
+    PRINT TargetCustomer[TargetCustomer.id, TargetCustomer.total_cards];
+
+    PRINT TargetCard[
+        TargetCard.id,
+        TargetCard.card1,
+        TargetCard.card2,
+        TargetCard.card3,
+        TargetCard.card4,
+        TargetCard.card5,
+        TargetCard.card6,
+        TargetCard.status
+    ];
+
+    PRINT Device[
+        Device.device_hash,
+        Device.device_info,
+        Device.device_type,
+        Device.os,
+        Device.browser,
+        Device.screen_res,
+        Device.proxy_status,
+        Device.device_status
+    ];
+
+    PRINT Region[Region.region_id, Region.region_code, Region.country_code];
+
+    PRINT PurchaserEmail[PurchaserEmail.domain_name, PurchaserEmail.is_disposable];
+    PRINT RecipientEmail[RecipientEmail.domain_name, RecipientEmail.is_disposable];
+
+    PRINT PriorTxn[PriorTxn.id, PriorTxn.ts, PriorTxn.amount, PriorTxn.risk_score];
+    PRINT NextTxn[NextTxn.id, NextTxn.ts, NextTxn.amount, NextTxn.risk_score];
+
+    PRINT InvolvedCase[
+        InvolvedCase.case_id,
+        InvolvedCase.outcome,
+        InvolvedCase.pattern,
+        InvolvedCase.exposure_usd,
+        InvolvedCase.actions_taken,
+        InvolvedCase.analyst_notes
+    ];
+
+    PRINT CardCases[
+        CardCases.case_id,
+        CardCases.outcome,
+        CardCases.pattern,
+        CardCases.opened_at,
+        CardCases.exposure_usd
+    ];
+}

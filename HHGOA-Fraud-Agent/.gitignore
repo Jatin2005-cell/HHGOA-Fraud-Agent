@@ -1,0 +1,22 @@
+# Environment variables & secrets
+.env
+*.env
+!.env.example
+!example.env
+config/.env
+mcp/config/.env
+
+# Python & IDE
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.idea/
+.vscode/
+*.swp
+
+# Temporary and log files
+*.tmp
+*.part

@@ -1,0 +1,116 @@
+// TigerGraph Data Loading Job
+// Hacker House Goa 2026 - HHGOA_IEEE Fraud Investigation
+// Graph Name: FraudInvestigationGraph
+
+USE GRAPH FraudInvestigationGraph
+
+DROP JOB load_fraud_data
+
+CREATE LOADING JOB load_fraud_data FOR GRAPH FraudInvestigationGraph {
+    // -------------------------------------------------------------
+    // FILE DEFINITIONS
+    // -------------------------------------------------------------
+    DEFINE FILENAME customers_file = "$sys.data_root/dataset/processed/customers.csv";
+    DEFINE FILENAME cards_file = "$sys.data_root/dataset/processed/cards.csv";
+    DEFINE FILENAME txns_file = "$sys.data_root/dataset/processed/transactions.csv";
+    DEFINE FILENAME devices_file = "$sys.data_root/dataset/processed/devices.csv";
+    DEFINE FILENAME regions_file = "$sys.data_root/dataset/processed/billing_regions.csv";
+    DEFINE FILENAME email_file = "$sys.data_root/dataset/processed/email_domains.csv";
+    DEFINE FILENAME cases_file = "$sys.data_root/dataset/processed/closed_cases.csv";
+
+    DEFINE FILENAME edges_owns_file = "$sys.data_root/dataset/processed/edges_owns.csv";
+    DEFINE FILENAME edges_made_file = "$sys.data_root/dataset/processed/edges_made.csv";
+    DEFINE FILENAME edges_from_dev_file = "$sys.data_root/dataset/processed/edges_from_device.csv";
+    DEFINE FILENAME edges_billed_file = "$sys.data_root/dataset/processed/edges_billed_in.csv";
+    DEFINE FILENAME edges_p_email_file = "$sys.data_root/dataset/processed/edges_purchaser_email.csv";
+    DEFINE FILENAME edges_r_email_file = "$sys.data_root/dataset/processed/edges_recipient_email.csv";
+    DEFINE FILENAME edges_next_txn_file = "$sys.data_root/dataset/processed/edges_next_transaction.csv";
+    DEFINE FILENAME edges_case_txn_file = "$sys.data_root/dataset/processed/edges_case_involves.csv";
+    DEFINE FILENAME edges_case_card_file = "$sys.data_root/dataset/processed/edges_case_on_card.csv";
+    DEFINE FILENAME edges_conn_card_file = "$sys.data_root/dataset/processed/edges_connected_card.csv";
+
+    // -------------------------------------------------------------
+    // 1. VERTEX LOADERS
+    // -------------------------------------------------------------
+    // Customer: customer_id, total_cards
+    LOAD customers_file TO VERTEX Customer VALUES ($"customer_id", $"customer_id", $"total_cards") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // Card: card_id, card1..card6, status
+    LOAD cards_file TO VERTEX Card VALUES ($"card_id", $"card_id", $"card1", $"card2", $"card3", $"card4", $"card5", $"card6", $"status") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // Transaction: txn_id, ts, amount, product_cd, channel, risk_score, addr1, addr2, dist1, dist2, p_emaildomain, r_emaildomain, m_flags
+    LOAD txns_file TO VERTEX Transaction VALUES (
+        $"txn_id", $"txn_id", $"ts", $"amount", $"product_cd", $"channel", 
+        $"risk_score", $"addr1", $"addr2", $"dist1", $"dist2", 
+        $"p_emaildomain", $"r_emaildomain", $"m_flags"
+    ) USING HEADER="true", SEPARATOR=",";
+
+    // DeviceProfile: device_hash, device_info, device_type, os, browser, screen_res, proxy_status, device_status
+    LOAD devices_file TO VERTEX DeviceProfile VALUES (
+        $"device_hash", $"device_info", $"device_type", $"os", $"browser", 
+        $"screen_res", $"proxy_status", $"device_status"
+    ) USING HEADER="true", SEPARATOR=",";
+
+    // BillingRegion: region_id, region_code, country_code
+    LOAD regions_file TO VERTEX BillingRegion VALUES ($"region_id", $"region_code", $"country_code") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // EmailDomain: domain_name, is_disposable
+    LOAD email_file TO VERTEX EmailDomain VALUES ($"domain_name", $"domain_name", $"is_disposable") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // ClosedCase: case_id, customer_id, card_id, opened_at, closed_at, outcome, pattern, first_fraud_txn_id, n_txns, exposure_usd, actions_taken, report_filed, analyst_notes
+    LOAD cases_file TO VERTEX ClosedCase VALUES (
+        $"case_id", $"customer_id", $"card_id", $"opened_at", $"closed_at", 
+        $"outcome", $"pattern", $"first_fraud_txn_id", $"n_txns", 
+        $"exposure_usd", $"actions_taken", $"report_filed", $"analyst_notes"
+    ) USING HEADER="true", SEPARATOR=",";
+
+    // -------------------------------------------------------------
+    // 2. EDGE LOADERS
+    // -------------------------------------------------------------
+    // OWNS: Customer -> Card
+    LOAD edges_owns_file TO EDGE OWNS VALUES ($"customer_id", $"card_id", _, $"is_primary") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // MADE: Card -> Transaction
+    LOAD edges_made_file TO EDGE MADE VALUES ($"card_id", $"txn_id", $"ts") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // FROM_DEVICE: Transaction -> DeviceProfile (Online transactions only)
+    LOAD edges_from_dev_file TO EDGE FROM_DEVICE VALUES (
+        $"txn_id", $"device_hash", $"id_15_status", $"id_23_proxy", $"match_status"
+    ) WHERE $"device_hash" IS NOT EMPTY USING HEADER="true", SEPARATOR=",";
+
+    // BILLED_IN: Transaction -> BillingRegion
+    LOAD edges_billed_file TO EDGE BILLED_IN VALUES ($"txn_id", $"region_id", $"dist1") 
+        WHERE $"region_id" IS NOT EMPTY USING HEADER="true", SEPARATOR=",";
+
+    // PURCHASER_EMAIL: Transaction -> EmailDomain
+    LOAD edges_p_email_file TO EDGE PURCHASER_EMAIL VALUES ($"txn_id", $"domain_name") 
+        WHERE $"domain_name" IS NOT EMPTY USING HEADER="true", SEPARATOR=",";
+
+    // RECIPIENT_EMAIL: Transaction -> EmailDomain
+    LOAD edges_r_email_file TO EDGE RECIPIENT_EMAIL VALUES ($"txn_id", $"domain_name") 
+        WHERE $"domain_name" IS NOT EMPTY USING HEADER="true", SEPARATOR=",";
+
+    // NEXT_TRANSACTION: Transaction -> Transaction
+    LOAD edges_next_txn_file TO EDGE NEXT_TRANSACTION VALUES (
+        $"from_txn_id", $"to_txn_id", $"delta_seconds", $"delta_amount", $"same_region"
+    ) USING HEADER="true", SEPARATOR=",";
+
+    // CASE_INVOLVES: ClosedCase -> Transaction
+    LOAD edges_case_txn_file TO EDGE CASE_INVOLVES VALUES (
+        $"case_id", $"txn_id", $"is_first_fraud", $"is_flagged_trigger"
+    ) USING HEADER="true", SEPARATOR=",";
+
+    // CASE_ON_CARD: ClosedCase -> Card
+    LOAD edges_case_card_file TO EDGE CASE_ON_CARD VALUES ($"case_id", $"card_id") 
+        USING HEADER="true", SEPARATOR=",";
+
+    // CONNECTED_CARD: ClosedCase -> Card
+    LOAD edges_conn_card_file TO EDGE CONNECTED_CARD VALUES ($"case_id", $"card_id", $"connection_reason") 
+        USING HEADER="true", SEPARATOR=",";
+}

@@ -1,0 +1,50 @@
+{
+  "graph_name": "FraudInvestigationGraph",
+  "schema_file": "tigergraph/schema.gsql",
+  "loading_job_file": "tigergraph/load_data.gsql",
+  "connection_configuration": {
+    "host_domain": "https://your-tigergraph-instance.i.tgcloud.io",
+    "restpp_port": 443,
+    "graph_name": "FraudInvestigationGraph",
+    "credentials_status": "Placeholders in example.env (No active credentials in .env)"
+  },
+  "live_connection_test": {
+    "host_reachable": false,
+    "localhost_port_9000_reachable": false,
+    "localhost_port_14240_reachable": false,
+    "docker_installed": false,
+    "active_runtime_mode": "LOCAL_STAGED_GRAPH_FALLBACK"
+  },
+  "staged_graph_inventory": {
+    "location": "dataset/processed/",
+    "vertex_types": {
+      "Customer": 13553,
+      "Card": 15280,
+      "Transaction": 590742,
+      "DeviceProfile": 144432,
+      "ClosedCase": 5565,
+      "DynamicCase": 20
+    },
+    "edge_types": {
+      "OWNS_CARD": 15280,
+      "MADE_TRANSACTION": 590742,
+      "USED_DEVICE": 144432,
+      "CASE_INVOLVES": 5585,
+      "CASE_ON_CARD": 5585,
+      "CONNECTED_CARD": 3214,
+      "SIMILAR_PRECEDENT": 5565
+    }
+  },
+  "gsql_queries_defined": [
+    "transaction_investigation_query",
+    "card_window_query",
+    "device_neighbors_query",
+    "region_anomaly_query",
+    "similar_closed_cases_query",
+    "customer_history_query",
+    "connected_cards_query",
+    "temporal_pattern_query",
+    "investigation_subgraph_query"
+  ],
+  "audit_conclusion": "TigerGraph schema and queries are 100% defined and valid. Runtime execution runs via the official MCP client's local staged graph store due to the absence of active TigerGraph Cloud credentials or a local Docker engine."
+}

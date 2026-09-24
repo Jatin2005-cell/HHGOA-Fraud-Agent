@@ -1,0 +1,143 @@
+// TigerGraph Fraud Investigation Knowledge Graph Schema
+// Hacker House Goa 2026 - HHGOA_IEEE Edition
+// Graph Name: FraudInvestigationGraph
+
+CREATE GRAPH FraudInvestigationGraph()
+
+USE GRAPH FraudInvestigationGraph
+
+// =============================================================
+// VERTEX DEFINITIONS
+// =============================================================
+
+// 1. Customer Entity
+CREATE VERTEX Customer (
+    PRIMARY_ID customer_id STRING,
+    id STRING,
+    total_cards INT
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 2. Payment Card Account Entity
+CREATE VERTEX Card (
+    PRIMARY_ID card_id STRING,
+    id STRING,
+    card1 INT,
+    card2 FLOAT,
+    card3 FLOAT,
+    card4 STRING,
+    card5 FLOAT,
+    card6 STRING,
+    status STRING
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 3. Transaction Event Entity
+CREATE VERTEX Transaction (
+    PRIMARY_ID txn_id STRING,
+    id STRING,
+    ts DATETIME,
+    amount FLOAT,
+    product_cd STRING,
+    channel STRING,
+    risk_score FLOAT,
+    addr1 FLOAT,
+    addr2 FLOAT,
+    dist1 FLOAT,
+    dist2 FLOAT,
+    p_emaildomain STRING,
+    r_emaildomain STRING,
+    m_flags STRING
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 4. Device Profile Fingerprint Entity
+CREATE VERTEX DeviceProfile (
+    PRIMARY_ID device_hash STRING,
+    device_info STRING,
+    device_type STRING,
+    os STRING,
+    browser STRING,
+    screen_res STRING,
+    proxy_status STRING,
+    device_status STRING
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 5. Billing Region Geographic Entity
+CREATE VERTEX BillingRegion (
+    PRIMARY_ID region_id STRING,
+    region_code FLOAT,
+    country_code FLOAT
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 6. Email Domain Entity
+CREATE VERTEX EmailDomain (
+    PRIMARY_ID domain_name STRING,
+    name STRING,
+    is_disposable BOOL
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 7. Historical Closed Case Memory Entity
+CREATE VERTEX ClosedCase (
+    PRIMARY_ID case_id STRING,
+    customer_id STRING,
+    card_id STRING,
+    opened_at DATETIME,
+    closed_at DATETIME,
+    outcome STRING,
+    pattern STRING,
+    first_fraud_txn_id STRING,
+    n_txns INT,
+    exposure_usd FLOAT,
+    actions_taken STRING,
+    report_filed STRING,
+    analyst_notes STRING
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+// 8. Dynamic Agent Case Progression Entity
+CREATE VERTEX DynamicCase (
+    PRIMARY_ID case_id STRING,
+    opened_at DATETIME,
+    closed_at DATETIME,
+    status STRING,
+    verdict STRING,
+    fraud_probability FLOAT,
+    pattern STRING,
+    pattern_description STRING,
+    exposure_usd FLOAT,
+    stop_reason STRING,
+    sar_filed BOOL,
+    summary STRING
+) WITH STATS="OUTDEGREE_BY_EDGETYPE";
+
+
+// =============================================================
+// EDGE DEFINITIONS
+// =============================================================
+
+// Customer owns Card
+CREATE DIRECTED EDGE OWNS (FROM Customer, TO Card, issued_ts DATETIME, is_primary BOOL) WITH REVERSE_EDGE="OWNED_BY";
+
+// Card executed Transaction
+CREATE DIRECTED EDGE MADE (FROM Card, TO Transaction, ts DATETIME) WITH REVERSE_EDGE="MADE_BY";
+
+// Transaction originated from DeviceProfile (online channel)
+CREATE DIRECTED EDGE FROM_DEVICE (FROM Transaction, TO DeviceProfile, id_15_status STRING, id_23_proxy STRING, match_status STRING) WITH REVERSE_EDGE="DEVICE_USED_IN";
+
+// Transaction billed in BillingRegion
+CREATE DIRECTED EDGE BILLED_IN (FROM Transaction, TO BillingRegion, dist1 FLOAT) WITH REVERSE_EDGE="HAS_TRANSACTION";
+
+// Transaction associated with Purchaser Email Domain
+CREATE DIRECTED EDGE PURCHASER_EMAIL (FROM Transaction, TO EmailDomain) WITH REVERSE_EDGE="PURCHASER_FOR";
+
+// Transaction associated with Recipient/Merchant Email Domain
+CREATE DIRECTED EDGE RECIPIENT_EMAIL (FROM Transaction, TO EmailDomain) WITH REVERSE_EDGE="RECIPIENT_FOR";
+
+// Sequential transaction link within the same Card
+CREATE DIRECTED EDGE NEXT_TRANSACTION (FROM Transaction, TO Transaction, delta_seconds INT, delta_amount FLOAT, same_region BOOL);
+
+// Case involves Transaction
+CREATE DIRECTED EDGE CASE_INVOLVES (FROM ClosedCase|DynamicCase, TO Transaction, is_first_fraud BOOL, is_flagged_trigger BOOL) WITH REVERSE_EDGE="INVOLVED_IN_CASE";
+
+// Case primary target Card
+CREATE DIRECTED EDGE CASE_ON_CARD (FROM ClosedCase|DynamicCase, TO Card) WITH REVERSE_EDGE="TARGETED_IN_CASE";
+
+// Case connects to additional compromised Cards
+CREATE DIRECTED EDGE CONNECTED_CARD (FROM ClosedCase|DynamicCase, TO Card, connection_reason STRING) WITH REVERSE_EDGE="CONNECTED_TO_CASE";

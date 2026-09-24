@@ -1,0 +1,38 @@
+{
+  "mcp_framework": "Official TigerGraph Model Context Protocol (MCP)",
+  "dependencies": {
+    "pyTigerGraph": "2.0.4",
+    "pyTigerGraph-mcp": "1.0.1",
+    "mcp": "2.2.0",
+    "mcp-types": "2.2.0"
+  },
+  "implementation_file": "mcp/tools/investigation_mcp_client.py",
+  "test_runner": "mcp/tests/run_mcp_tests.py",
+  "tools_exposed": [
+    "get_transaction_context",
+    "get_card_transaction_window",
+    "find_device_neighbors",
+    "find_region_anomalies",
+    "find_similar_closed_cases",
+    "get_customer_history",
+    "find_connected_cards",
+    "analyze_temporal_pattern",
+    "get_investigation_subgraph"
+  ],
+  "safety_controls": {
+    "read_only_enforced": true,
+    "destructive_queries_blocked": true,
+    "input_regex_validation": true,
+    "result_bounds_and_pagination": true,
+    "audit_logging": true,
+    "audit_log_path": "mcp/audit.log"
+  },
+  "runtime_data_source": "Local Staged Graph Store (dataset/processed/) via MCP client fallback",
+  "test_results": {
+    "total_tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "status": "PASS (9/9)"
+  },
+  "conclusion": "VERIFIED. The official pyTigerGraph-mcp client is implemented with 9 tools, strict input validation, and audit logging. In the absence of a live TigerGraph cluster, it executes over the exact local staged graph tables."
+}

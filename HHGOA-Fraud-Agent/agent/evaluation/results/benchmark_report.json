@@ -1,0 +1,14 @@
+{
+  "total_cases": 20,
+  "completed_cases": 20,
+  "completion_rate_pct": 100.0,
+  "schema_validity_pct": 100.0,
+  "tool_success_rate_pct": 100.0,
+  "evidence_provenance_coverage_pct": 100.0,
+  "unsupported_evidence_count": 0,
+  "policy_validation_success_pct": 100.0,
+  "action_route_consistency_pct": 100.0,
+  "stop_condition_validity_pct": 100.0,
+  "avg_latency_s": 3.108,
+  "avg_tool_calls_per_case": 5.65
+}

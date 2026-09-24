@@ -1,0 +1,231 @@
+{
+  "timestamp": "2026-09-20T12:53:37.472022+00:00",
+  "total_cases": 20,
+  "persisted_cases": 20,
+  "graph_readback_verified": 20,
+  "verification_rate_pct": 100.0,
+  "sar_generated_count": 6,
+  "avg_latency_s": 4.88,
+  "cases": [
+    {
+      "case_id": "HHG-001",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "none",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-002",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-003",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "none",
+      "exposure_usd": 49.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "L1"
+    },
+    {
+      "case_id": "HHG-004",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 128.33,
+      "writeback_status": "VERIFIED",
+      "sar_required": true,
+      "approval_route": "L2"
+    },
+    {
+      "case_id": "HHG-005",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-006",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 482.12,
+      "writeback_status": "VERIFIED",
+      "sar_required": true,
+      "approval_route": "L2"
+    },
+    {
+      "case_id": "HHG-007",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "none",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-008",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 55.68,
+      "writeback_status": "VERIFIED",
+      "sar_required": true,
+      "approval_route": "L2"
+    },
+    {
+      "case_id": "HHG-009",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 30.02,
+      "writeback_status": "VERIFIED",
+      "sar_required": true,
+      "approval_route": "L2"
+    },
+    {
+      "case_id": "HHG-010",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "uncertain",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 1000.03,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-011",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 131.3,
+      "writeback_status": "VERIFIED",
+      "sar_required": true,
+      "approval_route": "L2"
+    },
+    {
+      "case_id": "HHG-012",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "none",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-013",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-014",
+      "trigger_type": "analyst_request",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "none",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-015",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "uncertain",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 599.94,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-016",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 59.67,
+      "writeback_status": "VERIFIED",
+      "sar_required": true,
+      "approval_route": "L2"
+    },
+    {
+      "case_id": "HHG-017",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-018",
+      "trigger_type": "customer_report",
+      "status": "APPROVAL_PENDING",
+      "verdict": "fraud",
+      "pattern": "none",
+      "exposure_usd": 39.08,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "L1"
+    },
+    {
+      "case_id": "HHG-019",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    },
+    {
+      "case_id": "HHG-020",
+      "trigger_type": "risk_score",
+      "status": "RESOLVED",
+      "verdict": "legitimate",
+      "pattern": "card_not_present_fraud",
+      "exposure_usd": 0.0,
+      "writeback_status": "VERIFIED",
+      "sar_required": false,
+      "approval_route": "auto"
+    }
+  ]
+}

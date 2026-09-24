@@ -1,0 +1,87 @@
+// Query #3: region_anomaly_query
+// Purpose: Investigate geographic and billing region anomalies for a card and transaction.
+// Traversal: Card -> MADE -> Transaction (in_person) -> BILLED_IN -> BillingRegion
+// Compares the flagged transaction's region against the historical distribution of card-present
+// billing regions for this card over the entire 6-month history.
+// Detects: Pattern 4 (Out-of-Region Use). Distinguishes single-transaction card cloning
+// from legitimate consecutive multi-day travel.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY region_anomaly_query(
+    VERTEX<Card> target_card,
+    VERTEX<Transaction> flagged_txn
+) FOR GRAPH FraudInvestigationGraph {
+
+    MapAccum<STRING, INT> @@region_frequency;
+    SumAccum<INT> @@total_in_person_txns = 0;
+    SumAccum<INT> @@flagged_region_historical_count = 0;
+    MaxAccum<STRING> @@dominant_home_region = "";
+    MaxAccum<INT> @@max_freq = 0;
+
+    StartCard = {target_card};
+    Flagged = {flagged_txn};
+
+    // 1. Get region of the flagged transaction
+    FlaggedRegion = SELECT r FROM Flagged:t -(BILLED_IN:e)-> BillingRegion:r;
+
+    STRING target_reg_id;
+    FOREACH item IN FlaggedRegion DO
+        target_reg_id = item.region_id;
+    END;
+
+    // 2. Traverse historical in-person (card-present) transactions for this card
+    HistoricalTxns = SELECT t FROM StartCard:c -(MADE:e)-> Transaction:t
+                     WHERE t.channel == "in_person";
+
+    // 3. Accumulate historical billing regions
+    HistoricalRegions = SELECT r FROM HistoricalTxns:t -(BILLED_IN:e)-> BillingRegion:r
+                        ACCUM 
+                            @@total_in_person_txns += 1,
+                            @@region_frequency += (r.region_id -> 1)
+                        POST-ACCUM
+                            IF @@region_frequency.get(r.region_id) > @@max_freq THEN
+                                @@max_freq = @@region_frequency.get(r.region_id),
+                                @@dominant_home_region = r.region_id
+                            END;
+
+    // 4. Check if flagged region appeared in history
+    IF @@region_frequency.containsKey(target_reg_id) THEN
+        @@flagged_region_historical_count = @@region_frequency.get(target_reg_id);
+    END;
+
+    BOOL is_new_region = false;
+    IF @@flagged_region_historical_count == 0 THEN
+        is_new_region = true;
+    END;
+
+    FLOAT home_region_dominance = 0.0;
+    IF @@total_in_person_txns > 0 THEN
+        home_region_dominance = (@@max_freq * 1.0) / @@total_in_person_txns;
+    END;
+
+    // 5. Gather all transactions in this specific flagged region to check consecutive days (travel vs clone)
+    TransactionsInFlaggedRegion = SELECT t FROM HistoricalTxns:t -(BILLED_IN:e)-> BillingRegion:r
+                                  WHERE r.region_id == target_reg_id
+                                  ORDER BY t.ts ASC;
+
+    PRINT flagged_txn.id AS flagged_txn_id,
+          target_card.id AS card_id,
+          target_reg_id AS flagged_region_id,
+          @@dominant_home_region AS dominant_home_region,
+          home_region_dominance AS home_region_dominance_ratio,
+          @@total_in_person_txns AS total_in_person_history_count,
+          @@flagged_region_historical_count AS flagged_region_prior_count,
+          is_new_region AS is_new_billing_region;
+
+    PRINT FlaggedRegion[FlaggedRegion.region_id, FlaggedRegion.region_code, FlaggedRegion.country_code];
+
+    PRINT @@region_frequency AS historical_region_frequency_map;
+
+    PRINT TransactionsInFlaggedRegion[
+        TransactionsInFlaggedRegion.id,
+        TransactionsInFlaggedRegion.ts,
+        TransactionsInFlaggedRegion.amount,
+        TransactionsInFlaggedRegion.channel
+    ];
+}

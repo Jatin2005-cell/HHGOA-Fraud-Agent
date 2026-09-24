@@ -1,0 +1,104 @@
+// TigerGraph Graph Traversal & Fraud Pattern Analysis Queries
+// Hacker House Goa 2026 - Investigation Agent Tools
+
+USE GRAPH FraudInvestigationGraph
+
+// -------------------------------------------------------------
+// QUERY 1: Card Temporal Window Query
+// Detects: Pattern 1 (Card testing) & Pattern 2 (CNP burst)
+// -------------------------------------------------------------
+CREATE OR REPLACE QUERY card_window_query(VERTEX<Card> target_card, DATETIME center_ts, INT window_hours) FOR GRAPH FraudInvestigationGraph {
+    DATETIME start_ts;
+    DATETIME end_ts;
+    start_ts = datetime_add(center_ts, INTERVAL (-window_hours) HOUR);
+    end_ts = datetime_add(center_ts, INTERVAL (window_hours) HOUR);
+
+    Start = {target_card};
+
+    Txns = SELECT t FROM Start:c -(MADE:e)-> Transaction:t
+           WHERE t.ts >= start_ts AND t.ts <= end_ts
+           ORDER BY t.ts ASC;
+
+    PRINT Txns[Txns.id, Txns.ts, Txns.amount, Txns.product_cd, Txns.channel, Txns.risk_score, Txns.addr1];
+}
+
+// -------------------------------------------------------------
+// QUERY 2: Device Multi-Card / Multi-Customer Neighbors Query
+// Detects: Pattern 3 (CNP New Device) & Undocumented Shared Device Syndicate
+// -------------------------------------------------------------
+CREATE OR REPLACE QUERY device_neighbors_query(VERTEX<Transaction> target_txn) FOR GRAPH FraudInvestigationGraph {
+    Start = {target_txn};
+
+    Devices = SELECT d FROM Start:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+
+    OtherTxns = SELECT t FROM Devices:d -(<FROM_DEVICE:e)- Transaction:t;
+
+    Cards = SELECT c FROM OtherTxns:t -(<MADE:e)- Card:c;
+
+    Customers = SELECT cust FROM Cards:c -(<OWNS:e)- Customer:cust;
+
+    PriorCases = SELECT cs FROM OtherTxns:t -(<INVOLVES_TXN:e)- Case:cs;
+
+    PRINT Devices[Devices.device_hash, Devices.device_info, Devices.device_type, Devices.os, Devices.browser, Devices.proxy_status, Devices.device_status];
+    PRINT Cards[Cards.id, Cards.card4, Cards.card6, Cards.status];
+    PRINT Customers[Customers.id];
+    PRINT PriorCases[PriorCases.case_id, PriorCases.outcome, PriorCases.pattern, PriorCases.exposure_usd, PriorCases.analyst_notes];
+}
+
+// -------------------------------------------------------------
+// QUERY 3: Out-of-Region Anomaly Query
+// Detects: Pattern 4 (Out-of-Region Use / Card Cloning vs Travel)
+// -------------------------------------------------------------
+CREATE OR REPLACE QUERY region_anomaly_query(VERTEX<Card> target_card, VERTEX<Transaction> flagged_txn) FOR GRAPH FraudInvestigationGraph {
+    StartCard = {target_card};
+    Flagged = {flagged_txn};
+
+    // 1. Get flagged transaction billing region
+    FlaggedRegion = SELECT r FROM Flagged:t -(BILLED_IN:e)-> BillingRegion:r;
+
+    // 2. Get card's historical in-person billing regions over the past 90 days
+    HistoricalInPersonTxns = SELECT t FROM StartCard:c -(MADE:e)-> Transaction:t
+                             WHERE t.channel == "in_person";
+
+    HistoricalRegions = SELECT r FROM HistoricalInPersonTxns:t -(BILLED_IN:e)-> BillingRegion:r;
+
+    PRINT FlaggedRegion[FlaggedRegion.region_code, FlaggedRegion.country_code];
+    PRINT HistoricalRegions[HistoricalRegions.region_code, COUNT(HistoricalRegions)];
+}
+
+// -------------------------------------------------------------
+// QUERY 4: Customer Account Takeover Subgraph Query
+// Detects: Pattern 5 (Account Takeover / Credential Compromise)
+// -------------------------------------------------------------
+CREATE OR REPLACE QUERY account_takeover_subgraph(VERTEX<Customer> target_customer) FOR GRAPH FraudInvestigationGraph {
+    Start = {target_customer};
+
+    Cards = SELECT c FROM Start:cust -(OWNS:e)-> Card:c;
+
+    Txns = SELECT t FROM Cards:c -(MADE:e)-> Transaction:t;
+
+    Devices = SELECT d FROM Txns:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+
+    RecentCases = SELECT cs FROM Cards:c -(<ON_CARD:e)- Case:cs;
+
+    PRINT Start[Start.id, Start.total_cards];
+    PRINT Cards[Cards.id, Cards.card4, Cards.card6, Cards.status];
+    PRINT Devices[Devices.device_hash, Devices.device_info, Devices.proxy_status, Devices.device_status];
+    PRINT RecentCases[RecentCases.case_id, RecentCases.status, RecentCases.verdict, RecentCases.pattern];
+}
+
+// -------------------------------------------------------------
+// QUERY 5: GraphRAG Case Memory Retrieval Query
+// Retrieves: Similar closed cases by pattern, device, or exposure
+// -------------------------------------------------------------
+CREATE OR REPLACE QUERY similar_closed_cases_query(STRING target_pattern, STRING target_device_hash) FOR GRAPH FraudInvestigationGraph {
+    AllCases = {Case.*};
+
+    MatchedCases = SELECT cs FROM AllCases:cs
+                   WHERE (target_pattern != "" AND cs.pattern == target_pattern)
+                      OR (target_device_hash != "" AND cs.case_type == "historical")
+                   ORDER BY cs.exposure_usd DESC
+                   LIMIT 10;
+
+    PRINT MatchedCases[MatchedCases.case_id, MatchedCases.status, MatchedCases.verdict, MatchedCases.pattern, MatchedCases.exposure_usd, MatchedCases.actions_taken, MatchedCases.report_filed, MatchedCases.analyst_notes];
+}

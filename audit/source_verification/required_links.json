@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://drive.google.com/drive/folders/1YDJUW1fiE7Jx8R9KqknC4IcsED9zll2A?usp=sharing",
+    "source_document": "TigerGraph Agentic Fraud Investigation HHGOA.pdf (Page 3)",
+    "purpose": "Official HHGOA_IEEE dataset download folder",
+    "required": true,
+    "used_in_project": true,
+    "implementation_reference": "dataset/raw/ (transactions.csv, identity.csv, closed_cases_history.csv, case_pack.csv, README.md)",
+    "status": "VERIFIED"
+  },
+  {
+    "url": "https://github.com/tigergraph/tigergraph-mcp",
+    "source_document": "TigerGraph Agentic Fraud Investigation HHGOA.pdf (Page 3)",
+    "purpose": "Official TigerGraph Model Context Protocol (MCP) Server and Tools",
+    "required": true,
+    "used_in_project": true,
+    "implementation_reference": "pyTigerGraph-mcp 1.0.1 and mcp 2.2.0 in mcp/tools/investigation_mcp_client.py",
+    "status": "VERIFIED"
+  },
+  {
+    "url": "https://savanna.tgcloud.io/",
+    "source_document": "TigerGraph Agentic Fraud Investigation HHGOA.pdf (Page 3)",
+    "purpose": "TigerGraph Savanna Cloud instance hosting for Graph Storage",
+    "required": true,
+    "used_in_project": false,
+    "implementation_reference": "tigergraph/schema.gsql & mcp/config/example.env (Local staged fallback active; no live cloud instance credential supplied in .env)",
+    "status": "PARTIAL (Offline / Local Staged Graph Fallback Active)"
+  },
+  {
+    "url": "https://dl.tigergraph.com/",
+    "source_document": "TigerGraph Agentic Fraud Investigation HHGOA.pdf (Page 3)",
+    "purpose": "TigerGraph Community Edition / Docker Download",
+    "required": false,
+    "used_in_project": false,
+    "implementation_reference": "tigergraph/schema.gsql & tigergraph/load_data.gsql (Docker not installed on host)",
+    "status": "NOT APPLICABLE (Host environment lacks Docker)"
+  },
+  {
+    "url": "https://discord.gg/7JMkCAy9D3",
+    "source_document": "TigerGraph Agentic Fraud Investigation HHGOA.pdf (Page 5)",
+    "purpose": "Hacker House Goa TigerGraph Mentor Support Discord",
+    "required": false,
+    "used_in_project": true,
+    "implementation_reference": "Documented in project references",
+    "status": "VERIFIED"
+  },
+  {
+    "url": "https://chat.whatsapp.com/GfjxqVkdSoTGxl4Vrx54dc?mode=gi_t",
+    "source_document": "TigerGraph Agentic Fraud Investigation HHGOA.pdf (Page 5)",
+    "purpose": "Hacker House Goa WhatsApp announcements group",
+    "required": false,
+    "used_in_project": true,
+    "implementation_reference": "Documented in project references",
+    "status": "VERIFIED"
+  }
+]

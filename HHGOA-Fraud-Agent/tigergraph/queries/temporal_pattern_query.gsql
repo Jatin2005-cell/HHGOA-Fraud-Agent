@@ -1,0 +1,64 @@
+// Query #8: temporal_pattern_query
+// Purpose: Traverse sequential transaction chains using NEXT_TRANSACTION edges.
+// Analyzes: delta_seconds, delta_amount, and same_region attributes between consecutive transactions.
+// Identifies:
+// 1. High velocity bursts (transactions within <300 seconds)
+// 2. Micro-testing transitions (<$5 authorizations followed by jump >$50)
+// 3. Structuring / threshold avoidance (successive transactions just below $500 threshold)
+// Output: Empirical chain metrics and anomaly flags without making final fraud decisions.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY temporal_pattern_query(
+    VERTEX<Transaction> start_txn,
+    INT max_forward_hops = 5
+) FOR GRAPH FraudInvestigationGraph {
+
+    ListAccum<VERTEX<Transaction>> @@chain;
+    SumAccum<INT> @@rapid_velocity_count = 0; // delta_seconds < 300
+    SumAccum<INT> @@sub_5_dollar_count = 0;
+    MaxAccum<FLOAT> @@max_amount_in_chain = 0.0;
+    SumAccum<INT> @@structuring_band_count = 0; // amounts between $450 and $499.99
+
+    Current = {start_txn};
+    @@chain += start_txn;
+
+    WHILE Current.size() > 0 LIMIT max_forward_hops DO
+        Current = SELECT next_t FROM Current:curr -(NEXT_TRANSACTION:e)-> Transaction:next_t
+                  ACCUM
+                      @@chain += next_t,
+                      IF e.delta_seconds <= 300 THEN
+                          @@rapid_velocity_count += 1
+                      END,
+                      IF next_t.amount <= 5.00 THEN
+                          @@sub_5_dollar_count += 1
+                      END,
+                      IF next_t.amount >= 450.00 AND next_t.amount <= 499.99 THEN
+                          @@structuring_band_count += 1
+                      END,
+                      @@max_amount_in_chain += next_t.amount;
+    END;
+
+    BOOL has_rapid_velocity = (@@rapid_velocity_count >= 2);
+    BOOL has_testing_jump = (@@sub_5_dollar_count >= 2 AND @@max_amount_in_chain >= 50.0);
+    BOOL has_structuring_indicators = (@@structuring_band_count >= 3);
+
+    PRINT start_txn.id AS start_txn_id,
+          @@chain.size() AS chain_length,
+          @@rapid_velocity_count AS rapid_successions_under_5min,
+          @@sub_5_dollar_count AS micro_authorizations_count,
+          @@structuring_band_count AS sub_500_structuring_count,
+          has_rapid_velocity AS velocity_burst_detected,
+          has_testing_jump AS card_testing_jump_detected,
+          has_structuring_indicators AS threshold_avoidance_detected;
+
+    ChainTxns = {@@chain};
+    PRINT ChainTxns[
+        ChainTxns.id,
+        ChainTxns.ts,
+        ChainTxns.amount,
+        ChainTxns.channel,
+        ChainTxns.risk_score,
+        ChainTxns.addr1
+    ] ORDER BY ChainTxns.ts ASC;
+}

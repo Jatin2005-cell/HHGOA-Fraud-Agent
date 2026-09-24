@@ -1,0 +1,48 @@
+{
+  "challenge_name": "TigerGraph Agentic Fraud Investigation HHGOA",
+  "document_file": "TigerGraph Agentic Fraud Investigation HHGOA.pdf",
+  "file_path": "C:\\Users\\LOQ\\Downloads\\TigerGraph Agentic Fraud Investigation HHGOA.pdf",
+  "file_size_bytes": 131286,
+  "sha256": "d9fdee6fd36557f02017758a5eafea059dd7e797a16a56a3b02da8aba506d6e0",
+  "page_count": 5,
+  "readable": true,
+  "verification_status": "VERIFIED",
+  "challenge_summary": {
+    "title": "Build an AI Agent for Fraud Investigation and Next-Best Action",
+    "host_event": "Hacker House Goa 2026 (IEEE-CIS edition)",
+    "dataset_specified": "HHGOA_IEEE (built on IEEE-CIS Fraud Detection, Vesta Corporation)",
+    "dataset_characteristics": {
+      "transactions_approx": 590000,
+      "customers_approx": 13500,
+      "timespan_months": 6,
+      "closed_cases_period": "first 4 months",
+      "benchmark_cases_count": 20,
+      "benchmark_period": "final 2 months"
+    },
+    "core_investigation_flow": [
+      "1. Trigger",
+      "2. Investigate",
+      "3. Gather evidence",
+      "4. Assess uncertainty",
+      "5. Gather more evidence if needed",
+      "6. Take one or more next actions",
+      "7. Explain the decision",
+      "8. Update case memory"
+    ],
+    "required_components": [
+      "TigerGraph Savanna or Community Edition",
+      "GSQL and graph algorithms",
+      "TigerGraph MCP (https://github.com/tigergraph/tigergraph-mcp)",
+      "GraphRAG",
+      "User interface"
+    ],
+    "submission_deliverables": [
+      "Working agent",
+      "GitHub repository",
+      "Agent output on the 20 provided cases (including graph writeback, SAR, next-best-action, approval route)",
+      "3-5 minute demo video",
+      "Technical blog post",
+      "Social media post tagging @TigerGraphDB"
+    ]
+  }
+}

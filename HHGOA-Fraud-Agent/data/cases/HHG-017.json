@@ -1,0 +1,130 @@
+{
+  "case_id": "HHG-017",
+  "status": "RESOLVED",
+  "created_at": "2026-09-20T12:53:23.254388+00:00",
+  "updated_at": "2026-09-20T12:53:23.254388+00:00",
+  "trigger_type": "risk_score",
+  "trigger_text": "Real-time model scored transaction 3450629 ($100.09, online) at 0.57. Review and decide.",
+  "flagged_txn_id": "3450629",
+  "customer_id": "C04570",
+  "card_id": "C04570-K1",
+  "verdict": "legitimate",
+  "fraud_probability": 0.08,
+  "risk_score": 0.57,
+  "fraud_pattern": "card_not_present_fraud",
+  "pattern_description": "",
+  "affected_txn_ids": [],
+  "first_suspicious_txn_id": "3450629",
+  "connected_card_ids": [],
+  "connected_device_profiles": [
+    "DEV_06a9ab3147e441f6"
+  ],
+  "exposure_usd": 0.0,
+  "evidence": [
+    {
+      "claim": "Historical precedent CC-1383: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1383: model scored a $99.98 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+      "source": "graph",
+      "ref": "case_memory:CC-1383",
+      "entity_ids": [
+        "CC-1383",
+        "C04570",
+        "C04570-K1"
+      ]
+    },
+    {
+      "claim": "Transaction 3450629 amount $100.09 executed via online channel on card C04570-K1 for customer C04570 in billing region 204.0.",
+      "source": "graph",
+      "ref": "query:transaction_investigation_query",
+      "entity_ids": [
+        "3450629",
+        "C04570-K1",
+        "C04570"
+      ]
+    },
+    {
+      "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+      "source": "graph",
+      "ref": "query:card_window_query(card_id=)",
+      "entity_ids": [
+        ""
+      ]
+    },
+    {
+      "claim": "Customer C04570 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+      "source": "graph",
+      "ref": "query:customer_history_query(customer=C04570)",
+      "entity_ids": [
+        "C04570"
+      ]
+    },
+    {
+      "claim": "Online transaction operated from device profile DEV_06a9ab3147e441f6 (Windows | Windows 10 | chrome 65.0 | ).",
+      "source": "graph",
+      "ref": "query:transaction_investigation_query",
+      "entity_ids": [
+        "DEV_06a9ab3147e441f6"
+      ]
+    },
+    {
+      "claim": "Device DEV_06a9ab3147e441f6 is shared across 0 distinct cards and 0 transactions.",
+      "source": "graph",
+      "ref": "query:device_neighbors_query",
+      "entity_ids": [
+        "DEV_06a9ab3147e441f6"
+      ]
+    },
+    {
+      "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+      "source": "customer",
+      "ref": "evidence_request:1",
+      "entity_ids": [
+        "C04570",
+        "C04570-K1"
+      ]
+    }
+  ],
+  "similar_prior_cases": [
+    "CC-1383"
+  ],
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 6,
+      "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+    }
+  ],
+  "initial_next_best_action": [
+    {
+      "action": "VERIFY_WITH_CUSTOMER",
+      "route": "auto",
+      "reason": "R1: Probability 0.57 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+    }
+  ],
+  "final_next_best_action": [
+    {
+      "action": "CLOSE_NO_FRAUD",
+      "route": "auto",
+      "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+    }
+  ],
+  "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate.",
+  "approval_route": "auto",
+  "approval_status": "NOT_REQUIRED",
+  "approval_details": null,
+  "policy_rules_triggered": [],
+  "summary": "Investigation of alert HHG-017 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Historical precedent CC-1383: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1383: model scored a $99.98 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Transaction 3450629 amount $100.09 executed via online channel on card C04570-K1 for customer C04570 in billing region 204.0. Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00. Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+  "explanation": "",
+  "sar_required": false,
+  "sar_status": "NOT_REQUIRED",
+  "sar_reference": {
+    "file": false,
+    "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+  "agent_version": "1.0.0",
+  "investigation_version": "phase6-v1"
+}

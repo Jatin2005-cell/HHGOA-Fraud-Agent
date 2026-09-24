@@ -1,0 +1,3160 @@
+{
+  "HHG-001": {
+    "case_id": "HHG-001",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.12,
+      "pattern": "none",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "",
+      "connected_card_ids": [],
+      "connected_device_profiles": [],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-1673: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-1673: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-08-04 and 2016-08-04 totaling $199.98 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1673",
+          "entity_ids": [
+            "CC-1673",
+            "C12382",
+            "C12382-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1066: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-1066: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-07-23 and 2016-07-23 totaling $170.98 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1066",
+          "entity_ids": [
+            "CC-1066",
+            "C12382",
+            "C12382-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2964: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2964: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-09-01 and 2016-09-01 totaling $171.08 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2964",
+          "entity_ids": [
+            "CC-2964",
+            "C12382",
+            "C12382-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-3587: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-3587: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-09-16 and 2016-09-16 totaling $49.09 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3587",
+          "entity_ids": [
+            "CC-3587",
+            "C12382",
+            "C12382-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3514030 amount $77.07 executed via in_person channel on card C12382-K1 for customer C12382 in billing region 444.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3514030",
+            "C12382-K1",
+            "C12382"
+          ]
+        },
+        {
+          "claim": "Card C12382-K1 in-person history shows 420 transactions across home regions. Flagged region  has 15 prior occurrences.",
+          "source": "graph",
+          "ref": "query:region_anomaly_query(card_id=C12382-K1)",
+          "entity_ids": [
+            "C12382-K1"
+          ]
+        },
+        {
+          "claim": "Customer C12382 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C12382)",
+          "entity_ids": [
+            "C12382"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-1066",
+        "CC-1673",
+        "CC-2964"
+      ],
+      "summary": "Investigation of alert HHG-001 (risk_score) determined a fraud probability of 0.12 consistent with None. Historical precedent CC-1673: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-1673: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-08-04 and 2016-08-04 totaling $199.98 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-1066: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-1066: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-07-23 and 2016-07-23 totaling $170.98 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2964: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2964: cardholder C12382 reported unrecognized activity on card C12382-K1. 1 transaction(s) between 2016-09-01 and 2016-09-01 totaling $171.08 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-001"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "what_changed": "nothing"
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "sufficient_evidence_for_action: Legitimate activity confirmed (fraud probability 0.12); alert cleared.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 3.233
+  },
+  "HHG-002": {
+    "case_id": "HHG-002",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.08,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "3478782",
+      "connected_card_ids": [],
+      "connected_device_profiles": [],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-4160: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-4160: cardholder C11891 reported unrecognized activity on card C11891-K1. 1 transaction(s) between 2016-09-29 and 2016-09-29 totaling $90.54 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a MotoE2(4G-LTE on chrome generic. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-4160",
+          "entity_ids": [
+            "CC-4160",
+            "C11891",
+            "C11891-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3478782 amount $292.36 executed via online channel on card C11891-K1 for customer C11891.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3478782",
+            "C11891-K1",
+            "C11891"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C11891 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C11891)",
+          "entity_ids": [
+            "C11891"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C11891",
+            "C11891-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-4160"
+      ],
+      "summary": "Investigation of alert HHG-002 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Historical precedent CC-4160: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-4160: cardholder C11891 reported unrecognized activity on card C11891-K1. 1 transaction(s) between 2016-09-29 and 2016-09-29 totaling $90.54 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a MotoE2(4G-LTE on chrome generic. Card blocked and reissued. Customer reimbursed.\" Transaction 3478782 amount $292.36 executed via online channel on card C11891-K1 for customer C11891. Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00. Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-002"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+        }
+      ],
+      "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 2.295
+  },
+  "HHG-003": {
+    "case_id": "HHG-003",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "none",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3530164"
+      ],
+      "first_suspicious_txn_id": "",
+      "connected_card_ids": [],
+      "connected_device_profiles": [],
+      "exposure_usd": 49.0,
+      "evidence": [
+        {
+          "claim": "Card C08623-K2 shares account ownership with 6 other card(s): C08623-K1, C08623-K3, C08623-K4, C08623-K5, C08623-K6, C08623-K7.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C08623-K2",
+            "C08623-K1",
+            "C08623-K3",
+            "C08623-K4",
+            "C08623-K5",
+            "C08623-K6",
+            "C08623-K7"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-3327: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-3327: cardholder C08623 reported unrecognized activity on card C08623-K2. 3 transaction(s) between 2016-09-09 and 2016-09-10 totaling $528.69 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a SAMSUNG SM-S727VL Build/MMB29M on samsung browser 6.2. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3327",
+          "entity_ids": [
+            "CC-3327",
+            "C08623",
+            "C08623-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2935: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2935: cardholder C08623 reported unrecognized activity on card C08623-K2. 2 transaction(s) between 2016-09-02 and 2016-09-02 totaling $238.00 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2935",
+          "entity_ids": [
+            "CC-2935",
+            "C08623",
+            "C08623-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-3682: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-3682: cardholder C08623 reported unrecognized activity on card C08623-K2. 2 transaction(s) between 2016-09-17 and 2016-09-19 totaling $300.51 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3682",
+          "entity_ids": [
+            "CC-3682",
+            "C08623",
+            "C08623-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2817: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2817: cardholder C08623 reported unrecognized activity on card C08623-K2. 1 transaction(s) between 2016-08-30 and 2016-08-30 totaling $38.96 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2817",
+          "entity_ids": [
+            "CC-2817",
+            "C08623",
+            "C08623-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1589: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1589: model scored a $99.91 transaction at 0.94. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1589",
+          "entity_ids": [
+            "CC-1589",
+            "C08623",
+            "C08623-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3530164 amount $49.00 executed via in_person channel on card C08623-K2 for customer C08623 in billing region 330.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3530164",
+            "C08623-K2",
+            "C08623"
+          ]
+        },
+        {
+          "claim": "Card C08623-K2 in-person history shows 1079 transactions across home regions. Flagged region  has 41 prior occurrences.",
+          "source": "graph",
+          "ref": "query:region_anomaly_query(card_id=C08623-K2)",
+          "entity_ids": [
+            "C08623-K2"
+          ]
+        },
+        {
+          "claim": "Customer C08623 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C08623)",
+          "entity_ids": [
+            "C08623"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $0.00 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C08623",
+            "C08623-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-1589",
+        "CC-2817",
+        "CC-2935"
+      ],
+      "summary": "Investigation of alert HHG-003 (customer_report) determined a fraud probability of 0.86 consistent with None. Card C08623-K2 shares account ownership with 6 other card(s): C08623-K1, C08623-K3, C08623-K4, C08623-K5, C08623-K6, C08623-K7. Historical precedent CC-3327: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-3327: cardholder C08623 reported unrecognized activity on card C08623-K2. 3 transaction(s) between 2016-09-09 and 2016-09-10 totaling $528.69 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a SAMSUNG SM-S727VL Build/MMB29M on samsung browser 6.2. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2935: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2935: cardholder C08623 reported unrecognized activity on card C08623-K2. 2 transaction(s) between 2016-09-02 and 2016-09-02 totaling $238.00 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $0.00 purchase and remained in possession of the card.). Total identified exposure is $49.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-003"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 5,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $0.00 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $49.00."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 3.32
+  },
+  "HHG-004": {
+    "case_id": "HHG-004",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3583227"
+      ],
+      "first_suspicious_txn_id": "3583227",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_1c36726b01402804"
+      ],
+      "exposure_usd": 128.33,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-1736: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-1736: cardholder C08106 reported unrecognized activity on card C08106-K1. 1 transaction(s) between 2016-08-05 and 2016-08-05 totaling $9.90 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a Windows on chrome 63.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1736",
+          "entity_ids": [
+            "CC-1736",
+            "C08106",
+            "C08106-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2121: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-2121: cardholder C08106 reported unrecognized activity on card C08106-K1. 1 transaction(s) between 2016-08-14 and 2016-08-14 totaling $102.68 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2121",
+          "entity_ids": [
+            "CC-2121",
+            "C08106",
+            "C08106-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-3778: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-3778: cardholder C08106 reported unrecognized activity on card C08106-K1. 1 transaction(s) between 2016-09-20 and 2016-09-20 totaling $58.42 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3778",
+          "entity_ids": [
+            "CC-3778",
+            "C08106",
+            "C08106-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0696: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0696: model scored a $13.68 transaction at 0.83. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0696",
+          "entity_ids": [
+            "CC-0696",
+            "C08106",
+            "C08106-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3583227 amount $128.33 executed via online channel on card C08106-K1 for customer C08106.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3583227",
+            "C08106-K1",
+            "C08106"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C08106 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C08106)",
+          "entity_ids": [
+            "C08106"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_1c36726b01402804 (nan | nan | firefox 47.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_1c36726b01402804"
+          ]
+        },
+        {
+          "claim": "Device DEV_1c36726b01402804 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_1c36726b01402804"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $128.33 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C08106",
+            "C08106-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0696",
+        "CC-1736",
+        "CC-2121"
+      ],
+      "summary": "Investigation of alert HHG-004 (customer_report) determined a fraud probability of 0.86 consistent with Card Not Present Fraud. Historical precedent CC-1736: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-1736: cardholder C08106 reported unrecognized activity on card C08106-K1. 1 transaction(s) between 2016-08-05 and 2016-08-05 totaling $9.90 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a Windows on chrome 63.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2121: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-2121: cardholder C08106 reported unrecognized activity on card C08106-K1. 1 transaction(s) between 2016-08-14 and 2016-08-14 totaling $102.68 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-3778: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-3778: cardholder C08106 reported unrecognized activity on card C08106-K1. 1 transaction(s) between 2016-09-20 and 2016-09-20 totaling $58.42 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $128.33 purchase and remained in possession of the card.). Total identified exposure is $128.33.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-004"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $128.33 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Strong fraud probability (0.78); block card to prevent further losses."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud investigation record and register case in graph memory."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $128.33."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        },
+        {
+          "action": "FILE_REPORT",
+          "route": "L2",
+          "reason": "R2/R6: SAR filing mandatory due to confirmed unauthorized use and exposure / syndicate connection."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": true,
+      "reason": "R2/R6: Confirmed unauthorized transaction exceeding reporting threshold or linked to multi-card syndicate.",
+      "narrative": "On or about 2016-12-29, financial institution investigation identified unauthorized transactional activity impacting customer C08106 on payment card C08106-K1. Flagged transaction 3583227 totaling $128.33 was executed under patterns characteristic of PatternEnum.CARD_NOT_PRESENT_FRAUD. Graph traversal analysis identified connections across account profiles and device entities (DEV_1c36726b01402804), involving an aggregate suspicious exposure of $128.33. Cardholder inquiry verified the activity was unauthorized. The institution has blocked card C08106-K1, placed linked cards under protective monitoring, and submitted this Suspicious Activity Report pursuant to FinCEN guidelines and Bank Fraud Policy R2/R6.",
+      "subjects": [
+        "C08106",
+        "C08106-K1",
+        "DEV_1c36726b01402804"
+      ],
+      "total_amount_usd": 128.33,
+      "activity_dates": [
+        "2016-12-29",
+        "2016-12-29"
+      ]
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.16
+  },
+  "HHG-005": {
+    "case_id": "HHG-005",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.08,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "3523199",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_5b64ce5e4c424f98"
+      ],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-2717: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2717: cardholder C02923 reported unrecognized activity on card C02923-K1. 6 transaction(s) between 2016-08-25 and 2016-08-27 totaling $896.08 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a Windows on edge 15.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2717",
+          "entity_ids": [
+            "CC-2717",
+            "C02923",
+            "C02923-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2400: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2400: cardholder C02923 reported unrecognized activity on card C02923-K1. 3 transaction(s) between 2016-08-18 and 2016-08-19 totaling $350.99 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2400",
+          "entity_ids": [
+            "CC-2400",
+            "C02923",
+            "C02923-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2857: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2857: cardholder C02923 reported unrecognized activity on card C02923-K1. 2 transaction(s) between 2016-08-30 and 2016-08-30 totaling $539.97 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2857",
+          "entity_ids": [
+            "CC-2857",
+            "C02923",
+            "C02923-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3523199 amount $100.07 executed via online channel on card C02923-K1 for customer C02923 in billing region 330.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3523199",
+            "C02923-K1",
+            "C02923"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_5b64ce5e4c424f98 (iOS Device | iOS 9.3.5 | mobile safari 9.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_5b64ce5e4c424f98"
+          ]
+        },
+        {
+          "claim": "Customer C02923 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C02923)",
+          "entity_ids": [
+            "C02923"
+          ]
+        },
+        {
+          "claim": "Device DEV_5b64ce5e4c424f98 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_5b64ce5e4c424f98"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C02923",
+            "C02923-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-2400",
+        "CC-2717",
+        "CC-2857"
+      ],
+      "summary": "Investigation of alert HHG-005 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Historical precedent CC-2717: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2717: cardholder C02923 reported unrecognized activity on card C02923-K1. 6 transaction(s) between 2016-08-25 and 2016-08-27 totaling $896.08 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a Windows on edge 15.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2400: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2400: cardholder C02923 reported unrecognized activity on card C02923-K1. 3 transaction(s) between 2016-08-18 and 2016-08-19 totaling $350.99 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2857: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2857: cardholder C02923 reported unrecognized activity on card C02923-K1. 2 transaction(s) between 2016-08-30 and 2016-08-30 totaling $539.97 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-005"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.54 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+        }
+      ],
+      "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.297
+  },
+  "HHG-006": {
+    "case_id": "HHG-006",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3476682"
+      ],
+      "first_suspicious_txn_id": "3476682",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_7059dc480f519e47"
+      ],
+      "exposure_usd": 482.12,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0002",
+          "entity_ids": [
+            "CC-0002",
+            "C06403",
+            "C06403-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0004",
+          "entity_ids": [
+            "CC-0004",
+            "C13440",
+            "C13440-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0005",
+          "entity_ids": [
+            "CC-0005",
+            "C08945",
+            "C08945-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0001: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-0001: cardholder C00259 reported unrecognized activity on card C00259-K1. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $155.43 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0001",
+          "entity_ids": [
+            "CC-0001",
+            "C00259",
+            "C00259-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0003: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0003: model scored a $442.92 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0003",
+          "entity_ids": [
+            "CC-0003",
+            "C05876",
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3476682 amount $482.12 executed via online channel on card C07297-K1 for customer C07297 in billing region 264.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3476682",
+            "C07297-K1",
+            "C07297"
+          ]
+        },
+        {
+          "claim": "Card C07297-K1 shares account ownership with 1 other card(s): C07297-K2.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C07297-K1",
+            "C07297-K2"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_7059dc480f519e47 (Trident/7.0 | Windows 7 | ie 11.0 for desktop | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_7059dc480f519e47"
+          ]
+        },
+        {
+          "claim": "Customer C07297 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C07297)",
+          "entity_ids": [
+            "C07297"
+          ]
+        },
+        {
+          "claim": "Device DEV_7059dc480f519e47 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_7059dc480f519e47"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $482.12 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C07297",
+            "C07297-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0001",
+        "CC-0002",
+        "CC-0003"
+      ],
+      "summary": "Investigation of alert HHG-006 (customer_report) determined a fraud probability of 0.86 consistent with Card Not Present Fraud. Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $482.12 purchase and remained in possession of the card.). Total identified exposure is $482.12.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-006"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $482.12 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Strong fraud probability (0.78); block card to prevent further losses."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud investigation record and register case in graph memory."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $482.12."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        },
+        {
+          "action": "FILE_REPORT",
+          "route": "L2",
+          "reason": "R2/R6: SAR filing mandatory due to confirmed unauthorized use and exposure / syndicate connection."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": true,
+      "reason": "R2/R6: Confirmed unauthorized transaction exceeding reporting threshold or linked to multi-card syndicate.",
+      "narrative": "On or about 2016-11-22, financial institution investigation identified unauthorized transactional activity impacting customer C07297 on payment card C07297-K1. Flagged transaction 3476682 totaling $482.12 was executed under patterns characteristic of PatternEnum.CARD_NOT_PRESENT_FRAUD. Graph traversal analysis identified connections across account profiles and device entities (DEV_7059dc480f519e47), involving an aggregate suspicious exposure of $482.12. Cardholder inquiry verified the activity was unauthorized. The institution has blocked card C07297-K1, placed linked cards under protective monitoring, and submitted this Suspicious Activity Report pursuant to FinCEN guidelines and Bank Fraud Policy R2/R6.",
+      "subjects": [
+        "C07297",
+        "C07297-K1",
+        "DEV_7059dc480f519e47"
+      ],
+      "total_amount_usd": 482.12,
+      "activity_dates": [
+        "2016-11-22",
+        "2016-11-22"
+      ]
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.483
+  },
+  "HHG-007": {
+    "case_id": "HHG-007",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.12,
+      "pattern": "none",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "",
+      "connected_card_ids": [],
+      "connected_device_profiles": [],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Card C09933-K2 shares account ownership with 4 other card(s): C09933-K1, C09933-K3, C09933-K4, C09933-K5.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C09933-K2",
+            "C09933-K1",
+            "C09933-K3",
+            "C09933-K4",
+            "C09933-K5"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0765: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0765: cardholder C09933 reported unrecognized activity on card C09933-K2. 13 transaction(s) between 2016-07-12 and 2016-07-18 totaling $1,664.54 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0765",
+          "entity_ids": [
+            "CC-0765",
+            "C09933",
+            "C09933-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0104: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0104: cardholder C09933 reported unrecognized activity on card C09933-K2. 1 transaction(s) between 2016-07-04 and 2016-07-04 totaling $92.02 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0104",
+          "entity_ids": [
+            "CC-0104",
+            "C09933",
+            "C09933-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1228: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-1228: cardholder C09933 reported unrecognized activity on card C09933-K2. 10 transaction(s) between 2016-07-20 and 2016-07-25 totaling $1,112.65 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1228",
+          "entity_ids": [
+            "CC-1228",
+            "C09933",
+            "C09933-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1524: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-1524: cardholder C09933 reported unrecognized activity on card C09933-K2. 14 transaction(s) between 2016-07-28 and 2016-08-01 totaling $3,532.83 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1524",
+          "entity_ids": [
+            "CC-1524",
+            "C09933",
+            "C09933-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0657: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0657: model scored a $1,769.94 transaction at 0.90. Cardholder confirmed the purchase. Amount unusual for this customer but consistent with their stated intent. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0657",
+          "entity_ids": [
+            "CC-0657",
+            "C09933",
+            "C09933-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3514948 amount $111.92 executed via in_person channel on card C09933-K2 for customer C09933 in billing region 264.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3514948",
+            "C09933-K2",
+            "C09933"
+          ]
+        },
+        {
+          "claim": "Card C09933-K2 in-person history shows 2545 transactions across home regions. Flagged region  has 2357 prior occurrences.",
+          "source": "graph",
+          "ref": "query:region_anomaly_query(card_id=C09933-K2)",
+          "entity_ids": [
+            "C09933-K2"
+          ]
+        },
+        {
+          "claim": "Customer C09933 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C09933)",
+          "entity_ids": [
+            "C09933"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0104",
+        "CC-0657",
+        "CC-0765"
+      ],
+      "summary": "Investigation of alert HHG-007 (risk_score) determined a fraud probability of 0.12 consistent with None. Card C09933-K2 shares account ownership with 4 other card(s): C09933-K1, C09933-K3, C09933-K4, C09933-K5. Historical precedent CC-0765: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0765: cardholder C09933 reported unrecognized activity on card C09933-K2. 13 transaction(s) between 2016-07-12 and 2016-07-18 totaling $1,664.54 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0104: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0104: cardholder C09933 reported unrecognized activity on card C09933-K2. 1 transaction(s) between 2016-07-04 and 2016-07-04 totaling $92.02 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-007"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "what_changed": "nothing"
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "sufficient_evidence_for_action: Legitimate activity confirmed (fraud probability 0.12); alert cleared.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 3.312
+  },
+  "HHG-008": {
+    "case_id": "HHG-008",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3558054"
+      ],
+      "first_suspicious_txn_id": "3558054",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_f89aeb1d49ce1035"
+      ],
+      "exposure_usd": 55.68,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-0772: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0772: cardholder C13171 reported unrecognized activity on card C13171-K2. 3 transaction(s) between 2016-07-15 and 2016-07-19 totaling $183.27 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a CRO-L03 Build/HUAWEICRO-L03 on chrome 62.0 for android. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0772",
+          "entity_ids": [
+            "CC-0772",
+            "C13171",
+            "C13171-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1715: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-1715: cardholder C13171 reported unrecognized activity on card C13171-K2. 8 transaction(s) between 2016-07-29 and 2016-08-05 totaling $553.72 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a SM-A300H Build/LRX22G on chrome 63.0 for android. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1715",
+          "entity_ids": [
+            "CC-1715",
+            "C13171",
+            "C13171-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0467: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0467: cardholder C13171 reported unrecognized activity on card C13171-K2. 8 transaction(s) between 2016-07-06 and 2016-07-12 totaling $649.77 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a ZEIA8 on chrome 62.0 for android. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0467",
+          "entity_ids": [
+            "CC-0467",
+            "C13171",
+            "C13171-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1293: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-1293: cardholder C13171 reported unrecognized activity on card C13171-K2. 10 transaction(s) between 2016-07-22 and 2016-07-27 totaling $419.34 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a SM-A300H Build/LRX22G on chrome 63.0 for android. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1293",
+          "entity_ids": [
+            "CC-1293",
+            "C13171",
+            "C13171-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0056: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0056: cardholder C13171 reported unrecognized activity on card C13171-K2. 1 transaction(s) between 2016-07-03 and 2016-07-03 totaling $40.21 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0056",
+          "entity_ids": [
+            "CC-0056",
+            "C13171",
+            "C13171-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3558054 amount $55.68 executed via online channel on card C13171-K2 for customer C13171.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3558054",
+            "C13171-K2",
+            "C13171"
+          ]
+        },
+        {
+          "claim": "Card C13171-K2 shares account ownership with 1 other card(s): C13171-K1.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C13171-K2",
+            "C13171-K1"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C13171 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C13171)",
+          "entity_ids": [
+            "C13171"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_f89aeb1d49ce1035 (nan | nan | chrome 66.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_f89aeb1d49ce1035"
+          ]
+        },
+        {
+          "claim": "Device DEV_f89aeb1d49ce1035 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_f89aeb1d49ce1035"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $55.68 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C13171",
+            "C13171-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0056",
+        "CC-0467",
+        "CC-0772"
+      ],
+      "summary": "Investigation of alert HHG-008 (customer_report) determined a fraud probability of 0.86 consistent with Card Not Present Fraud. Historical precedent CC-0772: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0772: cardholder C13171 reported unrecognized activity on card C13171-K2. 3 transaction(s) between 2016-07-15 and 2016-07-19 totaling $183.27 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a CRO-L03 Build/HUAWEICRO-L03 on chrome 62.0 for android. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-1715: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-1715: cardholder C13171 reported unrecognized activity on card C13171-K2. 8 transaction(s) between 2016-07-29 and 2016-08-05 totaling $553.72 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a SM-A300H Build/LRX22G on chrome 63.0 for android. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0467: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0467: cardholder C13171 reported unrecognized activity on card C13171-K2. 8 transaction(s) between 2016-07-06 and 2016-07-12 totaling $649.77 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a ZEIA8 on chrome 62.0 for android. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $55.68 purchase and remained in possession of the card.). Total identified exposure is $55.68.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-008"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $55.68 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Strong fraud probability (0.78); block card to prevent further losses."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud investigation record and register case in graph memory."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $55.68."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        },
+        {
+          "action": "FILE_REPORT",
+          "route": "L2",
+          "reason": "R2/R6: SAR filing mandatory due to confirmed unauthorized use and exposure / syndicate connection."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": true,
+      "reason": "R2/R6: Confirmed unauthorized transaction exceeding reporting threshold or linked to multi-card syndicate.",
+      "narrative": "On or about 2016-12-20, financial institution investigation identified unauthorized transactional activity impacting customer C13171 on payment card C13171-K2. Flagged transaction 3558054 totaling $55.68 was executed under patterns characteristic of PatternEnum.CARD_NOT_PRESENT_FRAUD. Graph traversal analysis identified connections across account profiles and device entities (DEV_f89aeb1d49ce1035), involving an aggregate suspicious exposure of $55.68. Cardholder inquiry verified the activity was unauthorized. The institution has blocked card C13171-K2, placed linked cards under protective monitoring, and submitted this Suspicious Activity Report pursuant to FinCEN guidelines and Bank Fraud Policy R2/R6.",
+      "subjects": [
+        "C13171",
+        "C13171-K2",
+        "DEV_f89aeb1d49ce1035"
+      ],
+      "total_amount_usd": 55.68,
+      "activity_dates": [
+        "2016-12-20",
+        "2016-12-20"
+      ]
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.274
+  },
+  "HHG-009": {
+    "case_id": "HHG-009",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3581141"
+      ],
+      "first_suspicious_txn_id": "3581141",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_2edf2958166561c5"
+      ],
+      "exposure_usd": 30.02,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0002",
+          "entity_ids": [
+            "CC-0002",
+            "C06403",
+            "C06403-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0004",
+          "entity_ids": [
+            "CC-0004",
+            "C13440",
+            "C13440-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0005",
+          "entity_ids": [
+            "CC-0005",
+            "C08945",
+            "C08945-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0001: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-0001: cardholder C00259 reported unrecognized activity on card C00259-K1. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $155.43 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0001",
+          "entity_ids": [
+            "CC-0001",
+            "C00259",
+            "C00259-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0003: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0003: model scored a $442.92 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0003",
+          "entity_ids": [
+            "CC-0003",
+            "C05876",
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3581141 amount $30.02 executed via online channel on card C08299-K1 for customer C08299 in billing region 203.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3581141",
+            "C08299-K1",
+            "C08299"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C08299 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C08299)",
+          "entity_ids": [
+            "C08299"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_2edf2958166561c5 (nan | nan | nan | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_2edf2958166561c5"
+          ]
+        },
+        {
+          "claim": "Device DEV_2edf2958166561c5 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_2edf2958166561c5"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $30.02 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C08299",
+            "C08299-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0001",
+        "CC-0002",
+        "CC-0003"
+      ],
+      "summary": "Investigation of alert HHG-009 (customer_report) determined a fraud probability of 0.86 consistent with Card Not Present Fraud. Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $30.02 purchase and remained in possession of the card.). Total identified exposure is $30.02.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-009"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $30.02 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Strong fraud probability (0.78); block card to prevent further losses."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud investigation record and register case in graph memory."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $30.02."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        },
+        {
+          "action": "FILE_REPORT",
+          "route": "L2",
+          "reason": "R2/R6: SAR filing mandatory due to confirmed unauthorized use and exposure / syndicate connection."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": true,
+      "reason": "R2/R6: Confirmed unauthorized transaction exceeding reporting threshold or linked to multi-card syndicate.",
+      "narrative": "On or about 2016-12-28, financial institution investigation identified unauthorized transactional activity impacting customer C08299 on payment card C08299-K1. Flagged transaction 3581141 totaling $30.02 was executed under patterns characteristic of PatternEnum.CARD_NOT_PRESENT_FRAUD. Graph traversal analysis identified connections across account profiles and device entities (DEV_2edf2958166561c5), involving an aggregate suspicious exposure of $30.02. Cardholder inquiry verified the activity was unauthorized. The institution has blocked card C08299-K1, placed linked cards under protective monitoring, and submitted this Suspicious Activity Report pursuant to FinCEN guidelines and Bank Fraud Policy R2/R6.",
+      "subjects": [
+        "C08299",
+        "C08299-K1",
+        "DEV_2edf2958166561c5"
+      ],
+      "total_amount_usd": 30.02,
+      "activity_dates": [
+        "2016-12-28",
+        "2016-12-28"
+      ]
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.243
+  },
+  "HHG-010": {
+    "case_id": "HHG-010",
+    "case": {
+      "status": "open",
+      "verdict": "uncertain",
+      "fraud_probability": 0.68,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3506725"
+      ],
+      "first_suspicious_txn_id": "3506725",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_9fd230e98695a579"
+      ],
+      "exposure_usd": 1000.03,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-0873: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0873: model scored a $50.05 transaction at 0.93. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0873",
+          "entity_ids": [
+            "CC-0873",
+            "C10434",
+            "C10434-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3506725 amount $1000.03 executed via online channel on card C10434-K1 for customer C10434 in billing region 469.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3506725",
+            "C10434-K1",
+            "C10434"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C10434 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C10434)",
+          "entity_ids": [
+            "C10434"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_9fd230e98695a579 (Windows | Windows 10 | edge 16.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_9fd230e98695a579"
+          ]
+        },
+        {
+          "claim": "Device DEV_9fd230e98695a579 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_9fd230e98695a579"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $1000.03 transaction.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C10434",
+            "C10434-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0873"
+      ],
+      "summary": "Investigation of alert HHG-010 (risk_score) determined a fraud probability of 0.68 consistent with Card Not Present Fraud. Historical precedent CC-0873: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0873: model scored a $50.05 transaction at 0.93. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Transaction 3506725 amount $1000.03 executed via online channel on card C10434-K1 for customer C10434 in billing region 469.0. Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00. Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $1000.03 transaction.). Total identified exposure is $1000.03.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-010"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $1000.03 transaction."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        },
+        {
+          "action": "ESCALATE_TO_ANALYST",
+          "route": "auto",
+          "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+        }
+      ],
+      "final": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        },
+        {
+          "action": "ESCALATE_TO_ANALYST",
+          "route": "auto",
+          "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+        }
+      ],
+      "what_changed": "nothing"
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.209
+  },
+  "HHG-011": {
+    "case_id": "HHG-011",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3583368"
+      ],
+      "first_suspicious_txn_id": "3583368",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_a6e029ef1f642c67"
+      ],
+      "exposure_usd": 131.3,
+      "evidence": [
+        {
+          "claim": "Card C11923-K2 shares account ownership with 29 other card(s): C11923-K1, C11923-K3, C11923-K4, C11923-K5, C11923-K6, C11923-K7, C11923-K8, C11923-K9, C11923-K10, C11923-K11, C11923-K12, C11923-K13, C11923-K14, C11923-K15, C11923-K16, C11923-K17, C11923-K18, C11923-K19, C11923-K20, C11923-K21, C11923-K22, C11923-K23, C11923-K24, C11923-K25, C11923-K26, C11923-K27, C11923-K28, C11923-K29, C11923-K30.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C11923-K2",
+            "C11923-K1",
+            "C11923-K3",
+            "C11923-K4",
+            "C11923-K5",
+            "C11923-K6",
+            "C11923-K7",
+            "C11923-K8",
+            "C11923-K9",
+            "C11923-K10",
+            "C11923-K11",
+            "C11923-K12",
+            "C11923-K13",
+            "C11923-K14",
+            "C11923-K15",
+            "C11923-K16",
+            "C11923-K17",
+            "C11923-K18",
+            "C11923-K19",
+            "C11923-K20",
+            "C11923-K21",
+            "C11923-K22",
+            "C11923-K23",
+            "C11923-K24",
+            "C11923-K25",
+            "C11923-K26",
+            "C11923-K27",
+            "C11923-K28",
+            "C11923-K29",
+            "C11923-K30"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0031: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0031: cardholder C11923 reported unrecognized activity on card C11923-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $20.36 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a Trident/7.0 on ie 11.0 for desktop. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0031",
+          "entity_ids": [
+            "CC-0031",
+            "C11923",
+            "C11923-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2247: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_testing'. Investigator notes: \"Case CC-2247: cardholder C11923 reported unrecognized activity on card C11923-K2. 71 transaction(s) between 2016-07-25 and 2016-08-16 totaling $4,886.18 were confirmed fraudulent. A run of very small online authorizations followed by a larger purchase, consistent with testing a stolen card number before use. Online transactions came from a Windows on chrome 63.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2247",
+          "entity_ids": [
+            "CC-2247",
+            "C11923",
+            "C11923-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2673: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_testing'. Investigator notes: \"Case CC-2673: cardholder C11923 reported unrecognized activity on card C11923-K2. 33 transaction(s) between 2016-08-18 and 2016-08-27 totaling $1,334.96 were confirmed fraudulent. A run of very small online authorizations followed by a larger purchase, consistent with testing a stolen card number before use. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2673",
+          "entity_ids": [
+            "CC-2673",
+            "C11923",
+            "C11923-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0290: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_testing'. Investigator notes: \"Case CC-0290: cardholder C11923 reported unrecognized activity on card C11923-K2. 8 transaction(s) between 2016-07-05 and 2016-07-08 totaling $144.56 were confirmed fraudulent. A run of very small online authorizations followed by a larger purchase, consistent with testing a stolen card number before use. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0290",
+          "entity_ids": [
+            "CC-0290",
+            "C11923",
+            "C11923-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1056: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-1056: cardholder C11923 reported unrecognized activity on card C11923-K2. 28 transaction(s) between 2016-07-11 and 2016-07-22 totaling $1,557.95 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1056",
+          "entity_ids": [
+            "CC-1056",
+            "C11923",
+            "C11923-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3583368 amount $131.30 executed via online channel on card C11923-K2 for customer C11923.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3583368",
+            "C11923-K2",
+            "C11923"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_a6e029ef1f642c67 (SM-G610F Build/NRD90M | nan | chrome 66.0 for android | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_a6e029ef1f642c67"
+          ]
+        },
+        {
+          "claim": "Customer C11923 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C11923)",
+          "entity_ids": [
+            "C11923"
+          ]
+        },
+        {
+          "claim": "Device DEV_a6e029ef1f642c67 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_a6e029ef1f642c67"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $131.30 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C11923",
+            "C11923-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0031",
+        "CC-0290",
+        "CC-1056"
+      ],
+      "summary": "Investigation of alert HHG-011 (customer_report) determined a fraud probability of 0.86 consistent with Card Not Present Fraud. Card C11923-K2 shares account ownership with 29 other card(s): C11923-K1, C11923-K3, C11923-K4, C11923-K5, C11923-K6, C11923-K7, C11923-K8, C11923-K9, C11923-K10, C11923-K11, C11923-K12, C11923-K13, C11923-K14, C11923-K15, C11923-K16, C11923-K17, C11923-K18, C11923-K19, C11923-K20, C11923-K21, C11923-K22, C11923-K23, C11923-K24, C11923-K25, C11923-K26, C11923-K27, C11923-K28, C11923-K29, C11923-K30. Historical precedent CC-0031: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0031: cardholder C11923 reported unrecognized activity on card C11923-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $20.36 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a Trident/7.0 on ie 11.0 for desktop. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2247: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_testing'. Investigator notes: \"Case CC-2247: cardholder C11923 reported unrecognized activity on card C11923-K2. 71 transaction(s) between 2016-07-25 and 2016-08-16 totaling $4,886.18 were confirmed fraudulent. A run of very small online authorizations followed by a larger purchase, consistent with testing a stolen card number before use. Online transactions came from a Windows on chrome 63.0. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $131.30 purchase and remained in possession of the card.). Total identified exposure is $131.30.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-011"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $131.30 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Strong fraud probability (0.78); block card to prevent further losses."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud investigation record and register case in graph memory."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $131.30."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        },
+        {
+          "action": "FILE_REPORT",
+          "route": "L2",
+          "reason": "R2/R6: SAR filing mandatory due to confirmed unauthorized use and exposure / syndicate connection."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": true,
+      "reason": "R2/R6: Confirmed unauthorized transaction exceeding reporting threshold or linked to multi-card syndicate.",
+      "narrative": "On or about 2016-12-29, financial institution investigation identified unauthorized transactional activity impacting customer C11923 on payment card C11923-K2. Flagged transaction 3583368 totaling $131.30 was executed under patterns characteristic of PatternEnum.CARD_NOT_PRESENT_FRAUD. Graph traversal analysis identified connections across account profiles and device entities (DEV_a6e029ef1f642c67), involving an aggregate suspicious exposure of $131.30. Cardholder inquiry verified the activity was unauthorized. The institution has blocked card C11923-K2, placed linked cards under protective monitoring, and submitted this Suspicious Activity Report pursuant to FinCEN guidelines and Bank Fraud Policy R2/R6.",
+      "subjects": [
+        "C11923",
+        "C11923-K2",
+        "DEV_a6e029ef1f642c67"
+      ],
+      "total_amount_usd": 131.3,
+      "activity_dates": [
+        "2016-12-29",
+        "2016-12-29"
+      ]
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.212
+  },
+  "HHG-012": {
+    "case_id": "HHG-012",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.12,
+      "pattern": "none",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "",
+      "connected_card_ids": [],
+      "connected_device_profiles": [],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Card C05876-K2 shares account ownership with 3 other card(s): C05876-K1, C05876-K3, C05876-K4.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C05876-K2",
+            "C05876-K1",
+            "C05876-K3",
+            "C05876-K4"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2370: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-2370: cardholder C05876 reported unrecognized activity on card C05876-K2. 2 transaction(s) between 2016-08-19 and 2016-08-19 totaling $149.99 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a rv:11.0 on ie 11.0 for desktop. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2370",
+          "entity_ids": [
+            "CC-2370",
+            "C05876",
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0003: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0003: model scored a $442.92 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0003",
+          "entity_ids": [
+            "CC-0003",
+            "C05876",
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3553342 amount $30.91 executed via in_person channel on card C05876-K2 for customer C05876 in billing region 494.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3553342",
+            "C05876-K2",
+            "C05876"
+          ]
+        },
+        {
+          "claim": "Card C05876-K2 in-person history shows 927 transactions across home regions. Flagged region  has 25 prior occurrences.",
+          "source": "graph",
+          "ref": "query:region_anomaly_query(card_id=C05876-K2)",
+          "entity_ids": [
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Customer C05876 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C05876)",
+          "entity_ids": [
+            "C05876"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0003",
+        "CC-2370"
+      ],
+      "summary": "Investigation of alert HHG-012 (risk_score) determined a fraud probability of 0.12 consistent with None. Card C05876-K2 shares account ownership with 3 other card(s): C05876-K1, C05876-K3, C05876-K4. Historical precedent CC-2370: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-2370: cardholder C05876 reported unrecognized activity on card C05876-K2. 2 transaction(s) between 2016-08-19 and 2016-08-19 totaling $149.99 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a rv:11.0 on ie 11.0 for desktop. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0003: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0003: model scored a $442.92 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-012"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "what_changed": "nothing"
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "sufficient_evidence_for_action: Legitimate activity confirmed (fraud probability 0.12); alert cleared.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 3.224
+  },
+  "HHG-013": {
+    "case_id": "HHG-013",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.08,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "3526826",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_12ca029d11a097ba"
+      ],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Card C07671-K2 shares account ownership with 8 other card(s): C07671-K1, C07671-K3, C07671-K4, C07671-K5, C07671-K6, C07671-K7, C07671-K8, C07671-K9.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C07671-K2",
+            "C07671-K1",
+            "C07671-K3",
+            "C07671-K4",
+            "C07671-K5",
+            "C07671-K6",
+            "C07671-K7",
+            "C07671-K8",
+            "C07671-K9"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-3216: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-3216: cardholder C07671 reported unrecognized activity on card C07671-K2. 3 transaction(s) between 2016-09-08 and 2016-09-08 totaling $449.97 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari generic. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3216",
+          "entity_ids": [
+            "CC-3216",
+            "C07671",
+            "C07671-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1475: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-1475: cardholder C07671 reported unrecognized activity on card C07671-K2. 10 transaction(s) between 2016-07-26 and 2016-07-29 totaling $1,307.98 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1475",
+          "entity_ids": [
+            "CC-1475",
+            "C07671",
+            "C07671-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-4294: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-4294: cardholder C07671 reported unrecognized activity on card C07671-K2. 2 transaction(s) between 2016-10-01 and 2016-10-02 totaling $506.01 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-4294",
+          "entity_ids": [
+            "CC-4294",
+            "C07671",
+            "C07671-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-3761: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-3761: model scored a $3,891.01 transaction at 0.89. Cardholder confirmed the purchase. Amount unusual for this customer but consistent with their stated intent. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3761",
+          "entity_ids": [
+            "CC-3761",
+            "C07671",
+            "C07671-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3526826 amount $35.66 executed via online channel on card C07671-K2 for customer C07671.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3526826",
+            "C07671-K2",
+            "C07671"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_12ca029d11a097ba (Windows | nan | chrome 66.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_12ca029d11a097ba"
+          ]
+        },
+        {
+          "claim": "Device DEV_12ca029d11a097ba is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_12ca029d11a097ba"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C07671",
+            "C07671-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-1475",
+        "CC-3216",
+        "CC-3761"
+      ],
+      "summary": "Investigation of alert HHG-013 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Card C07671-K2 shares account ownership with 8 other card(s): C07671-K1, C07671-K3, C07671-K4, C07671-K5, C07671-K6, C07671-K7, C07671-K8, C07671-K9. Historical precedent CC-3216: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-3216: cardholder C07671 reported unrecognized activity on card C07671-K2. 3 transaction(s) between 2016-09-08 and 2016-09-08 totaling $449.97 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari generic. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-1475: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-1475: cardholder C07671 reported unrecognized activity on card C07671-K2. 10 transaction(s) between 2016-07-26 and 2016-07-29 totaling $1,307.98 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-013"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 5,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+        }
+      ],
+      "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 2.25
+  },
+  "HHG-014": {
+    "case_id": "HHG-014",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.1,
+      "pattern": "none",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_c72bd41105eb39dd"
+      ],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0002",
+          "entity_ids": [
+            "CC-0002",
+            "C06403",
+            "C06403-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0004",
+          "entity_ids": [
+            "CC-0004",
+            "C13440",
+            "C13440-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0005",
+          "entity_ids": [
+            "CC-0005",
+            "C08945",
+            "C08945-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0001: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-0001: cardholder C00259 reported unrecognized activity on card C00259-K1. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $155.43 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0001",
+          "entity_ids": [
+            "CC-0001",
+            "C00259",
+            "C00259-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0003: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0003: model scored a $442.92 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0003",
+          "entity_ids": [
+            "CC-0003",
+            "C05876",
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3478561 amount $74.96 executed via online channel on card C13487-K1 for customer C13487 in billing region 191.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3478561",
+            "C13487-K1",
+            "C13487"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_c72bd41105eb39dd (SM-G935F Build/NRD90M | Android 7.0 | chrome 62.0 for android | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_c72bd41105eb39dd"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C13487 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C13487)",
+          "entity_ids": [
+            "C13487"
+          ]
+        },
+        {
+          "claim": "Device DEV_c72bd41105eb39dd is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_c72bd41105eb39dd"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0001",
+        "CC-0002",
+        "CC-0003"
+      ],
+      "summary": "Investigation of alert HHG-014 (analyst_request) determined a fraud probability of 0.10 consistent with None. Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-014"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "what_changed": "nothing"
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "sufficient_evidence_for_action: Legitimate activity confirmed (fraud probability 0.10); alert cleared.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.2
+  },
+  "HHG-015": {
+    "case_id": "HHG-015",
+    "case": {
+      "status": "open",
+      "verdict": "uncertain",
+      "fraud_probability": 0.68,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3464869"
+      ],
+      "first_suspicious_txn_id": "3464869",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_8a33751c99615877"
+      ],
+      "exposure_usd": 599.94,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-3886: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-3886: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-09-23 and 2016-09-23 totaling $175.05 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari generic. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-3886",
+          "entity_ids": [
+            "CC-3886",
+            "C03042",
+            "C03042-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0615: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0615: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-07-16 and 2016-07-16 totaling $174.99 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0615",
+          "entity_ids": [
+            "CC-0615",
+            "C03042",
+            "C03042-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1313: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1313: model scored a $100.08 transaction at 0.87. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1313",
+          "entity_ids": [
+            "CC-1313",
+            "C03042",
+            "C03042-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3464869 amount $599.94 executed via online channel on card C03042-K1 for customer C03042 in billing region 327.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3464869",
+            "C03042-K1",
+            "C03042"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_8a33751c99615877 (Trident/7.0 | Windows 8.1 | ie 11.0 for desktop | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_8a33751c99615877"
+          ]
+        },
+        {
+          "claim": "Customer C03042 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C03042)",
+          "entity_ids": [
+            "C03042"
+          ]
+        },
+        {
+          "claim": "Device DEV_8a33751c99615877 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_8a33751c99615877"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $599.94 transaction.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C03042",
+            "C03042-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0615",
+        "CC-1313",
+        "CC-3886"
+      ],
+      "summary": "Investigation of alert HHG-015 (risk_score) determined a fraud probability of 0.68 consistent with Card Not Present Fraud. Historical precedent CC-3886: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-3886: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-09-23 and 2016-09-23 totaling $175.05 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari generic. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0615: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0615: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-07-16 and 2016-07-16 totaling $174.99 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-1313: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1313: model scored a $100.08 transaction at 0.87. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $599.94 transaction.). Total identified exposure is $599.94.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-015"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $599.94 transaction."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        },
+        {
+          "action": "ESCALATE_TO_ANALYST",
+          "route": "auto",
+          "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+        }
+      ],
+      "final": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        },
+        {
+          "action": "ESCALATE_TO_ANALYST",
+          "route": "auto",
+          "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+        }
+      ],
+      "what_changed": "nothing"
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.191
+  },
+  "HHG-016": {
+    "case_id": "HHG-016",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3534820"
+      ],
+      "first_suspicious_txn_id": "3534820",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_c7dd64850bf1ead8"
+      ],
+      "exposure_usd": 59.67,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0002",
+          "entity_ids": [
+            "CC-0002",
+            "C06403",
+            "C06403-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0004",
+          "entity_ids": [
+            "CC-0004",
+            "C13440",
+            "C13440-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0005",
+          "entity_ids": [
+            "CC-0005",
+            "C08945",
+            "C08945-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0001: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-0001: cardholder C00259 reported unrecognized activity on card C00259-K1. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $155.43 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0001",
+          "entity_ids": [
+            "CC-0001",
+            "C00259",
+            "C00259-K1"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0003: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0003: model scored a $442.92 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0003",
+          "entity_ids": [
+            "CC-0003",
+            "C05876",
+            "C05876-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3534820 amount $59.67 executed via online channel on card C09988-K1 for customer C09988.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3534820",
+            "C09988-K1",
+            "C09988"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C09988 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C09988)",
+          "entity_ids": [
+            "C09988"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_c7dd64850bf1ead8 (Windows | nan | edge 16.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_c7dd64850bf1ead8"
+          ]
+        },
+        {
+          "claim": "Device DEV_c7dd64850bf1ead8 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_c7dd64850bf1ead8"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $59.67 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C09988",
+            "C09988-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0001",
+        "CC-0002",
+        "CC-0003"
+      ],
+      "summary": "Investigation of alert HHG-016 (customer_report) determined a fraud probability of 0.86 consistent with Card Not Present Fraud. Historical precedent CC-0002: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0002: cardholder C06403 reported unrecognized activity on card C06403-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $117.05 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0004: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0004: cardholder C13440 reported unrecognized activity on card C13440-K2. 2 transaction(s) between 2016-07-02 and 2016-07-02 totaling $857.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0005: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0005: cardholder C08945 reported unrecognized activity on card C08945-K2. 1 transaction(s) between 2016-07-02 and 2016-07-02 totaling $39.92 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $59.67 purchase and remained in possession of the card.). Total identified exposure is $59.67.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-016"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $59.67 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Strong fraud probability (0.78); block card to prevent further losses."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud investigation record and register case in graph memory."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $59.67."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        },
+        {
+          "action": "FILE_REPORT",
+          "route": "L2",
+          "reason": "R2/R6: SAR filing mandatory due to confirmed unauthorized use and exposure / syndicate connection."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": true,
+      "reason": "R2/R6: Confirmed unauthorized transaction exceeding reporting threshold or linked to multi-card syndicate.",
+      "narrative": "On or about 2016-12-12, financial institution investigation identified unauthorized transactional activity impacting customer C09988 on payment card C09988-K1. Flagged transaction 3534820 totaling $59.67 was executed under patterns characteristic of PatternEnum.CARD_NOT_PRESENT_FRAUD. Graph traversal analysis identified connections across account profiles and device entities (DEV_c7dd64850bf1ead8), involving an aggregate suspicious exposure of $59.67. Cardholder inquiry verified the activity was unauthorized. The institution has blocked card C09988-K1, placed linked cards under protective monitoring, and submitted this Suspicious Activity Report pursuant to FinCEN guidelines and Bank Fraud Policy R2/R6.",
+      "subjects": [
+        "C09988",
+        "C09988-K1",
+        "DEV_c7dd64850bf1ead8"
+      ],
+      "total_amount_usd": 59.67,
+      "activity_dates": [
+        "2016-12-12",
+        "2016-12-12"
+      ]
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.232
+  },
+  "HHG-017": {
+    "case_id": "HHG-017",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.08,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "3450629",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_06a9ab3147e441f6"
+      ],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-1383: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1383: model scored a $99.98 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1383",
+          "entity_ids": [
+            "CC-1383",
+            "C04570",
+            "C04570-K1"
+          ]
+        },
+        {
+          "claim": "Transaction 3450629 amount $100.09 executed via online channel on card C04570-K1 for customer C04570 in billing region 204.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3450629",
+            "C04570-K1",
+            "C04570"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Customer C04570 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C04570)",
+          "entity_ids": [
+            "C04570"
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_06a9ab3147e441f6 (Windows | Windows 10 | chrome 65.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_06a9ab3147e441f6"
+          ]
+        },
+        {
+          "claim": "Device DEV_06a9ab3147e441f6 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_06a9ab3147e441f6"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C04570",
+            "C04570-K1"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-1383"
+      ],
+      "summary": "Investigation of alert HHG-017 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Historical precedent CC-1383: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1383: model scored a $99.98 transaction at 0.91. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Transaction 3450629 amount $100.09 executed via online channel on card C04570-K1 for customer C04570 in billing region 204.0. Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00. Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-017"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.57 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+        }
+      ],
+      "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.266
+  },
+  "HHG-018": {
+    "case_id": "HHG-018",
+    "case": {
+      "status": "closed_fraud",
+      "verdict": "fraud",
+      "fraud_probability": 0.86,
+      "pattern": "none",
+      "pattern_description": "",
+      "affected_txn_ids": [
+        "3491361"
+      ],
+      "first_suspicious_txn_id": "",
+      "connected_card_ids": [],
+      "connected_device_profiles": [],
+      "exposure_usd": 39.08,
+      "evidence": [
+        {
+          "claim": "Card C02354-K2 shares account ownership with 12 other card(s): C02354-K1, C02354-K3, C02354-K4, C02354-K5, C02354-K6, C02354-K7, C02354-K8, C02354-K9, C02354-K10, C02354-K11, C02354-K12, C02354-K13.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C02354-K2",
+            "C02354-K1",
+            "C02354-K3",
+            "C02354-K4",
+            "C02354-K5",
+            "C02354-K6",
+            "C02354-K7",
+            "C02354-K8",
+            "C02354-K9",
+            "C02354-K10",
+            "C02354-K11",
+            "C02354-K12",
+            "C02354-K13"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-1450: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-1450: cardholder C02354 reported unrecognized activity on card C02354-K2. 14 transaction(s) between 2016-07-21 and 2016-07-29 totaling $2,351.25 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-1450",
+          "entity_ids": [
+            "CC-1450",
+            "C02354",
+            "C02354-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0255: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-0255: cardholder C02354 reported unrecognized activity on card C02354-K2. 7 transaction(s) between 2016-07-06 and 2016-07-08 totaling $1,167.08 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a iOS Device on mobile safari 10.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0255",
+          "entity_ids": [
+            "CC-0255",
+            "C02354",
+            "C02354-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0454: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-0454: cardholder C02354 reported unrecognized activity on card C02354-K2. 6 transaction(s) between 2016-07-12 and 2016-07-13 totaling $940.94 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0454",
+          "entity_ids": [
+            "CC-0454",
+            "C02354",
+            "C02354-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0631: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-0631: cardholder C02354 reported unrecognized activity on card C02354-K2. 2 transaction(s) between 2016-07-16 and 2016-07-16 totaling $118.17 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0631",
+          "entity_ids": [
+            "CC-0631",
+            "C02354",
+            "C02354-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-0405: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0405: model scored a $22.30 transaction at 0.94. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-0405",
+          "entity_ids": [
+            "CC-0405",
+            "C02354",
+            "C02354-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3491361 amount $39.08 executed via in_person channel on card C02354-K2 for customer C02354 in billing region 126.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3491361",
+            "C02354-K2",
+            "C02354"
+          ]
+        },
+        {
+          "claim": "Card C02354-K2 in-person history shows 6505 transactions across home regions. Flagged region  has 604 prior occurrences.",
+          "source": "graph",
+          "ref": "query:region_anomaly_query(card_id=C02354-K2)",
+          "entity_ids": [
+            "C02354-K2"
+          ]
+        },
+        {
+          "claim": "Customer C02354 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C02354)",
+          "entity_ids": [
+            "C02354"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $0.00 purchase and remained in possession of the card.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C02354",
+            "C02354-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-0255",
+        "CC-0405",
+        "CC-0454"
+      ],
+      "summary": "Investigation of alert HHG-018 (customer_report) determined a fraud probability of 0.86 consistent with None. Card C02354-K2 shares account ownership with 12 other card(s): C02354-K1, C02354-K3, C02354-K4, C02354-K5, C02354-K6, C02354-K7, C02354-K8, C02354-K9, C02354-K10, C02354-K11, C02354-K12, C02354-K13. Historical precedent CC-1450: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-1450: cardholder C02354 reported unrecognized activity on card C02354-K2. 14 transaction(s) between 2016-07-21 and 2016-07-29 totaling $2,351.25 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0255: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-0255: cardholder C02354 reported unrecognized activity on card C02354-K2. 7 transaction(s) between 2016-07-06 and 2016-07-08 totaling $1,167.08 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Online transactions came from a iOS Device on mobile safari 10.0. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $0.00 purchase and remained in possession of the card.). Total identified exposure is $39.08.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-018"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 5,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer confirmed dispute, stating they did not make this $0.00 purchase and remained in possession of the card."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Evidence confirms activity is consistent with legitimate cardholder profile."
+        }
+      ],
+      "final": [
+        {
+          "action": "BLOCK_CARD",
+          "route": "L1",
+          "reason": "R2: Customer explicitly denied authorization; exposure $39.08."
+        },
+        {
+          "action": "CREATE_CASE",
+          "route": "auto",
+          "reason": "R2: Open internal fraud case record with customer denial documentation."
+        }
+      ],
+      "what_changed": "Customer denial confirmed unauthorized compromise. Escalated action from verification to card blocking (L1), case creation, and regulatory filing."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 3.301
+  },
+  "HHG-019": {
+    "case_id": "HHG-019",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.08,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "3503878",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_8d1c12a568f70506"
+      ],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Historical precedent CC-2860: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-2860: cardholder C07987 reported unrecognized activity on card C07987-K2. 1 transaction(s) between 2016-08-31 and 2016-08-31 totaling $149.92 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a rv:57.0 on firefox 57.0. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2860",
+          "entity_ids": [
+            "CC-2860",
+            "C07987",
+            "C07987-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2011: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2011: cardholder C07987 reported unrecognized activity on card C07987-K2. 5 transaction(s) between 2016-08-10 and 2016-08-11 totaling $3,059.89 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2011",
+          "entity_ids": [
+            "CC-2011",
+            "C07987",
+            "C07987-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-5026: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-5026: cardholder C07987 reported unrecognized activity on card C07987-K2. 3 transaction(s) between 2016-10-18 and 2016-10-18 totaling $309.86 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-5026",
+          "entity_ids": [
+            "CC-5026",
+            "C07987",
+            "C07987-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2087: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-2087: model scored a $150.00 transaction at 0.94. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2087",
+          "entity_ids": [
+            "CC-2087",
+            "C07987",
+            "C07987-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3503878 amount $99.92 executed via online channel on card C07987-K2 for customer C07987 in billing region 264.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3503878",
+            "C07987-K2",
+            "C07987"
+          ]
+        },
+        {
+          "claim": "Card C07987-K2 shares account ownership with 1 other card(s): C07987-K1.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C07987-K2",
+            "C07987-K1"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_8d1c12a568f70506 (Windows | other | chrome 61.0 | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_8d1c12a568f70506"
+          ]
+        },
+        {
+          "claim": "Device DEV_8d1c12a568f70506 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_8d1c12a568f70506"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C07987",
+            "C07987-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-2011",
+        "CC-2087",
+        "CC-2860"
+      ],
+      "summary": "Investigation of alert HHG-019 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Historical precedent CC-2860: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-2860: cardholder C07987 reported unrecognized activity on card C07987-K2. 1 transaction(s) between 2016-08-31 and 2016-08-31 totaling $149.92 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a rv:57.0 on firefox 57.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2011: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-2011: cardholder C07987 reported unrecognized activity on card C07987-K2. 5 transaction(s) between 2016-08-10 and 2016-08-11 totaling $3,059.89 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-5026: Closed investigation with outcome 'confirmed_fraud' under pattern 'out_of_region_use'. Investigator notes: \"Case CC-5026: cardholder C07987 reported unrecognized activity on card C07987-K2. 3 transaction(s) between 2016-10-18 and 2016-10-18 totaling $309.86 were confirmed fraudulent. Card-present use in a billing region the cardholder had no history in, while the cardholder retained the card. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-019"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 5,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+        }
+      ],
+      "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 5,
+    "tokens": 2700,
+    "latency_s": 2.242
+  },
+  "HHG-020": {
+    "case_id": "HHG-020",
+    "case": {
+      "status": "closed_legitimate",
+      "verdict": "legitimate",
+      "fraud_probability": 0.08,
+      "pattern": "card_not_present_fraud",
+      "pattern_description": "",
+      "affected_txn_ids": [],
+      "first_suspicious_txn_id": "3509359",
+      "connected_card_ids": [],
+      "connected_device_profiles": [
+        "DEV_d3a0af5dcc0b49e3"
+      ],
+      "exposure_usd": 0.0,
+      "evidence": [
+        {
+          "claim": "Card C12265-K2 shares account ownership with 3 other card(s): C12265-K1, C12265-K3, C12265-K4.",
+          "source": "graph",
+          "ref": "query:connected_cards_query",
+          "entity_ids": [
+            "C12265-K2",
+            "C12265-K1",
+            "C12265-K3",
+            "C12265-K4"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2277: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2277: cardholder C12265 reported unrecognized activity on card C12265-K2. 1 transaction(s) between 2016-08-17 and 2016-08-17 totaling $81.93 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2277",
+          "entity_ids": [
+            "CC-2277",
+            "C12265",
+            "C12265-K2"
+          ]
+        },
+        {
+          "claim": "Historical precedent CC-2447: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2447: cardholder C12265 reported unrecognized activity on card C12265-K2. 1 transaction(s) between 2016-08-21 and 2016-08-21 totaling $33.95 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\"",
+          "source": "graph",
+          "ref": "case_memory:CC-2447",
+          "entity_ids": [
+            "CC-2447",
+            "C12265",
+            "C12265-K2"
+          ]
+        },
+        {
+          "claim": "Transaction 3509359 amount $125.08 executed via online channel on card C12265-K2 for customer C12265 in billing region 264.0.",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "3509359",
+            "C12265-K2",
+            "C12265"
+          ]
+        },
+        {
+          "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+          "source": "graph",
+          "ref": "query:card_window_query(card_id=)",
+          "entity_ids": [
+            ""
+          ]
+        },
+        {
+          "claim": "Online transaction operated from device profile DEV_d3a0af5dcc0b49e3 (Trident/7.0 | Windows 10 | ie 11.0 for desktop | ).",
+          "source": "graph",
+          "ref": "query:transaction_investigation_query",
+          "entity_ids": [
+            "DEV_d3a0af5dcc0b49e3"
+          ]
+        },
+        {
+          "claim": "Customer C12265 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+          "source": "graph",
+          "ref": "query:customer_history_query(customer=C12265)",
+          "entity_ids": [
+            "C12265"
+          ]
+        },
+        {
+          "claim": "Device DEV_d3a0af5dcc0b49e3 is shared across 0 distinct cards and 0 transactions.",
+          "source": "graph",
+          "ref": "query:device_neighbors_query",
+          "entity_ids": [
+            "DEV_d3a0af5dcc0b49e3"
+          ]
+        },
+        {
+          "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+          "source": "customer",
+          "ref": "evidence_request:1",
+          "entity_ids": [
+            "C12265",
+            "C12265-K2"
+          ]
+        }
+      ],
+      "similar_prior_cases": [
+        "CC-2277",
+        "CC-2447"
+      ],
+      "summary": "Investigation of alert HHG-020 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Card C12265-K2 shares account ownership with 3 other card(s): C12265-K1, C12265-K3, C12265-K4. Historical precedent CC-2277: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2277: cardholder C12265 reported unrecognized activity on card C12265-K2. 1 transaction(s) between 2016-08-17 and 2016-08-17 totaling $81.93 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-2447: Closed investigation with outcome 'confirmed_fraud' under pattern 'account_takeover'. Investigator notes: \"Case CC-2447: cardholder C12265 reported unrecognized activity on card C12265-K2. 1 transaction(s) between 2016-08-21 and 2016-08-21 totaling $33.95 were confirmed fraudulent. Mixed-channel activity inconsistent with the cardholder; credentials and card data both used. Card blocked and reissued. Customer reimbursed.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+      "written_to_graph": true,
+      "graph_case_id": "CASE-2016-020"
+    },
+    "evidence_requests": [
+      {
+        "type": "customer_validation",
+        "asked_after_step": 6,
+        "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+      }
+    ],
+    "next_best_actions": {
+      "initial": [
+        {
+          "action": "VERIFY_WITH_CUSTOMER",
+          "route": "auto",
+          "reason": "R1: Probability 0.52 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+        }
+      ],
+      "final": [
+        {
+          "action": "CLOSE_NO_FRAUD",
+          "route": "auto",
+          "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+        }
+      ],
+      "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+    },
+    "sar": {
+      "file": false,
+      "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+      "narrative": "",
+      "subjects": [],
+      "total_amount_usd": 0.0,
+      "activity_dates": []
+    },
+    "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+    "tool_calls": 6,
+    "tokens": 3150,
+    "latency_s": 3.218
+  }
+}

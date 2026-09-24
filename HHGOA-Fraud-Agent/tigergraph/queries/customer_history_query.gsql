@@ -1,0 +1,104 @@
+// Query #6: customer_history_query
+// Purpose: Given a customer_id, return their complete portfolio profile: all cards owned,
+// chronological transaction timeline, historical billing regions, devices utilized,
+// and any previous historical investigations (closed fraud or cleared false alarms).
+// Enables the agent to establish an empirical behavioral baseline for the customer.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY customer_history_query(
+    VERTEX<Customer> target_customer,
+    INT max_txns = 50
+) FOR GRAPH FraudInvestigationGraph {
+
+    SumAccum<INT> @@total_customer_txns = 0;
+    SumAccum<FLOAT> @@total_spend = 0.0;
+    AvgAccum @@avg_txn_amount;
+    MaxAccum<FLOAT> @@max_txn_amount = 0.0;
+    SumAccum<INT> @@in_person_count = 0;
+    SumAccum<INT> @@online_count = 0;
+    MinAccum<DATETIME> @@first_seen_ts;
+    MaxAccum<DATETIME> @@last_seen_ts;
+
+    Start = {target_customer};
+
+    // 1. Cards owned by customer
+    Cards = SELECT c FROM Start:cust -(OWNS:e)-> Card:c;
+
+    // 2. All transactions executed across all customer cards
+    Txns = SELECT t FROM Cards:c -(MADE:e)-> Transaction:t
+           ACCUM 
+               @@total_customer_txns += 1,
+               @@total_spend += t.amount,
+               @@avg_txn_amount += t.amount,
+               @@max_txn_amount += t.amount,
+               @@first_seen_ts += t.ts,
+               @@last_seen_ts += t.ts,
+               CASE WHEN t.channel == "in_person" THEN @@in_person_count += 1
+                    ELSE @@online_count += 1
+               END
+           ORDER BY t.ts DESC;
+
+    // 3. Historical devices used
+    Devices = SELECT d FROM Txns:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+
+    // 4. Historical billing regions
+    Regions = SELECT r FROM Txns:t -(BILLED_IN:e)-> BillingRegion:r;
+
+    // 5. Past closed cases on any of customer's cards
+    PastCases = SELECT cs FROM Cards:c -(<CASE_ON_CARD:e)- ClosedCase:cs;
+
+    PRINT target_customer.id AS customer_id,
+          target_customer.total_cards AS total_cards_count,
+          @@total_customer_txns AS total_transaction_count,
+          @@total_spend AS total_cumulative_spend,
+          @@avg_txn_amount AS average_transaction_amount,
+          @@max_txn_amount AS maximum_transaction_amount,
+          @@in_person_count AS in_person_transaction_count,
+          @@online_count AS online_transaction_count,
+          @@first_seen_ts AS customer_first_seen,
+          @@last_seen_ts AS customer_last_seen;
+
+    PRINT Cards[
+        Cards.id,
+        Cards.card1,
+        Cards.card4,
+        Cards.card6,
+        Cards.status
+    ];
+
+    PRINT Devices[
+        Devices.device_hash,
+        Devices.device_info,
+        Devices.os,
+        Devices.browser,
+        Devices.proxy_status
+    ];
+
+    PRINT Regions[
+        Regions.region_id,
+        Regions.region_code,
+        Regions.country_code
+    ];
+
+    PRINT PastCases[
+        PastCases.case_id,
+        PastCases.outcome,
+        PastCases.pattern,
+        PastCases.opened_at,
+        PastCases.exposure_usd,
+        PastCases.actions_taken,
+        PastCases.report_filed,
+        PastCases.analyst_notes
+    ];
+
+    PRINT Txns[
+        Txns.id,
+        Txns.ts,
+        Txns.amount,
+        Txns.product_cd,
+        Txns.channel,
+        Txns.risk_score,
+        Txns.addr1
+    ] LIMIT max_txns;
+}

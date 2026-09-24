@@ -1,0 +1,104 @@
+{
+  "case_id": "HHG-002",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.08,
+    "pattern": "card_not_present_fraud",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "3478782",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Historical precedent CC-4160: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-4160: cardholder C11891 reported unrecognized activity on card C11891-K1. 1 transaction(s) between 2016-09-29 and 2016-09-29 totaling $90.54 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a MotoE2(4G-LTE on chrome generic. Card blocked and reissued. Customer reimbursed.\"",
+        "source": "graph",
+        "ref": "case_memory:CC-4160",
+        "entity_ids": [
+          "CC-4160",
+          "C11891",
+          "C11891-K1"
+        ]
+      },
+      {
+        "claim": "Transaction 3478782 amount $292.36 executed via online channel on card C11891-K1 for customer C11891.",
+        "source": "graph",
+        "ref": "query:transaction_investigation_query",
+        "entity_ids": [
+          "3478782",
+          "C11891-K1",
+          "C11891"
+        ]
+      },
+      {
+        "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+        "source": "graph",
+        "ref": "query:card_window_query(card_id=)",
+        "entity_ids": [
+          ""
+        ]
+      },
+      {
+        "claim": "Customer C11891 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+        "source": "graph",
+        "ref": "query:customer_history_query(customer=C11891)",
+        "entity_ids": [
+          "C11891"
+        ]
+      },
+      {
+        "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.",
+        "source": "customer",
+        "ref": "evidence_request:1",
+        "entity_ids": [
+          "C11891",
+          "C11891-K1"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-4160"
+    ],
+    "summary": "Investigation of alert HHG-002 (risk_score) determined a fraud probability of 0.08 consistent with Card Not Present Fraud. Historical precedent CC-4160: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_fraud'. Investigator notes: \"Case CC-4160: cardholder C11891 reported unrecognized activity on card C11891-K1. 1 transaction(s) between 2016-09-29 and 2016-09-29 totaling $90.54 were confirmed fraudulent. Online purchases inconsistent with the cardholder's usual merchants and amounts. Online transactions came from a MotoE2(4G-LTE on chrome generic. Card blocked and reissued. Customer reimbursed.\" Transaction 3478782 amount $292.36 executed via online channel on card C11891-K1 for customer C11891. Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00. Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate.). Total identified exposure is $0.00.",
+    "written_to_graph": true,
+    "graph_case_id": "CASE-2016-002"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 6,
+      "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted; confirms they recognized the transaction as legitimate."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+      }
+    ],
+    "final": [
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "R3: Customer explicitly confirmed the transaction as legitimate."
+      }
+    ],
+    "what_changed": "Customer confirmed transaction upon verification; initial hold/verification resolved and alert closed as legitimate."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+  "tool_calls": 6,
+  "tokens": 3150,
+  "latency_s": 2.295
+}

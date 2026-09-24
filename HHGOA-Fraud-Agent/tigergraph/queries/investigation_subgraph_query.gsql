@@ -1,0 +1,50 @@
+// Query #9: investigation_subgraph_query
+// Purpose: Extract bounded multi-hop neighborhood around a flagged transaction.
+// Traverses:
+// Transaction -> Card -> Customer
+// Transaction -> DeviceProfile -> Sibling Transactions (online)
+// Transaction -> BillingRegion
+// Transaction -> EmailDomain
+// Transaction -> ClosedCase
+// Output: Structured nodes and edges formatted for D3/React graph visualization and GraphRAG text serialization.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY investigation_subgraph_query(
+    VERTEX<Transaction> target_txn,
+    INT max_sibling_txns = 5
+) FOR GRAPH FraudInvestigationGraph {
+
+    Start = {target_txn};
+
+    // 1-hop: Card, Device, Region, Email, Case
+    Cards = SELECT c FROM Start:t -(<MADE:e)- Card:c;
+    Customers = SELECT cust FROM Cards:c -(<OWNS:e)- Customer:cust;
+    Devices = SELECT d FROM Start:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+    Regions = SELECT r FROM Start:t -(BILLED_IN:e)-> BillingRegion:r;
+    PurchaserEmails = SELECT ed FROM Start:t -(PURCHASER_EMAIL:e)-> EmailDomain:ed;
+    RecipientEmails = SELECT ed FROM Start:t -(RECIPIENT_EMAIL:e)-> EmailDomain:ed;
+    DirectCases = SELECT cs FROM Start:t -(<CASE_INVOLVES:e)- ClosedCase:cs;
+
+    // 2-hop bounded: sibling transactions on the same card
+    SiblingCardTxns = SELECT t FROM Cards:c -(MADE:e)-> Transaction:t
+                      WHERE t != target_txn
+                      LIMIT max_sibling_txns;
+
+    // 2-hop bounded: sibling transactions on the same device
+    SiblingDeviceTxns = SELECT t FROM Devices:d -(<FROM_DEVICE:e)- Transaction:t
+                        WHERE t != target_txn
+                        LIMIT max_sibling_txns;
+
+    // Output all vertices categorized by entity type
+    PRINT Start[Start.id, Start.amount, Start.channel, Start.risk_score, Start.ts] AS target_transaction;
+    PRINT Customers[Customers.id, Customers.total_cards] AS customers;
+    PRINT Cards[Cards.id, Cards.card4, Cards.card6, Cards.status] AS cards;
+    PRINT Devices[Devices.device_hash, Devices.device_info, Devices.os, Devices.browser, Devices.proxy_status] AS devices;
+    PRINT Regions[Regions.region_id, Regions.region_code, Regions.country_code] AS billing_regions;
+    PRINT PurchaserEmails[PurchaserEmails.domain_name] AS purchaser_emails;
+    PRINT RecipientEmails[RecipientEmails.domain_name] AS recipient_emails;
+    PRINT DirectCases[DirectCases.case_id, DirectCases.outcome, DirectCases.pattern, DirectCases.exposure_usd] AS connected_cases;
+    PRINT SiblingCardTxns[SiblingCardTxns.id, SiblingCardTxns.amount, SiblingCardTxns.ts] AS sibling_card_transactions;
+    PRINT SiblingDeviceTxns[SiblingDeviceTxns.id, SiblingDeviceTxns.amount, SiblingDeviceTxns.ts] AS sibling_device_transactions;
+}

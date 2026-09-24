@@ -1,0 +1,75 @@
+// Query #1: card_window_query
+// Purpose: Given a card and a center timestamp (or flagged transaction), return transactions
+// within a specified time window (e.g. +/- 24 or 48 hours).
+// Traversal: Card -(MADE)-> Transaction
+// Detects: Transaction bursts, card testing sequences (sub-$5 tests followed by large purchase),
+// and rapid authorization velocity.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY card_window_query(
+    VERTEX<Card> target_card, 
+    DATETIME center_ts, 
+    INT window_hours = 24
+) FOR GRAPH FraudInvestigationGraph {
+
+    DATETIME start_ts;
+    DATETIME end_ts;
+    start_ts = datetime_add(center_ts, INTERVAL (-window_hours) HOUR);
+    end_ts = datetime_add(center_ts, INTERVAL (window_hours) HOUR);
+
+    ListAccum<VERTEX<Transaction>> @txn_list;
+    SumAccum<INT> @@total_txns = 0;
+    SumAccum<FLOAT> @@total_amount = 0.0;
+    SumAccum<INT> @@small_auth_count = 0; // count of txns < $5.00
+    MaxAccum<FLOAT> @@max_amount = 0.0;
+    MinAccum<DATETIME> @@first_seen;
+    MaxAccum<DATETIME> @@last_seen;
+
+    Start = {target_card};
+
+    // Traverse to all transactions made by this card in the time window
+    Txns = SELECT t FROM Start:c -(MADE:e)-> Transaction:t
+           WHERE t.ts >= start_ts AND t.ts <= end_ts
+           ACCUM 
+               @@total_txns += 1,
+               @@total_amount += t.amount,
+               @@max_amount += t.amount,
+               @@first_seen += t.ts,
+               @@last_seen += t.ts,
+               CASE WHEN t.amount <= 5.00 AND t.channel == "online" THEN
+                   @@small_auth_count += 1
+               END
+           ORDER BY t.ts ASC;
+
+    // Detect if card testing pattern indicator is present: >=3 small authorizations followed by a larger purchase
+    BOOL has_card_testing_indicators = false;
+    IF @@small_auth_count >= 3 AND @@max_amount >= 50.00 THEN
+        has_card_testing_indicators = true;
+    END;
+
+    PRINT target_card.id AS card_id,
+          center_ts AS query_center_ts,
+          window_hours AS query_window_hours,
+          @@total_txns AS window_txn_count,
+          @@total_amount AS window_total_amount,
+          @@small_auth_count AS sub_5_dollar_auth_count,
+          @@max_amount AS max_txn_amount,
+          has_card_testing_indicators AS card_testing_sequence_detected,
+          @@first_seen AS window_first_ts,
+          @@last_seen AS window_last_ts;
+
+    PRINT Txns[
+        Txns.id, 
+        Txns.ts, 
+        Txns.amount, 
+        Txns.product_cd, 
+        Txns.channel, 
+        Txns.risk_score, 
+        Txns.addr1, 
+        Txns.addr2,
+        Txns.dist1,
+        Txns.p_emaildomain,
+        Txns.r_emaildomain
+    ];
+}

@@ -1,0 +1,90 @@
+// Query #2: device_neighbors_query
+// Purpose: Given a target transaction, find all other transactions, cards, and customers
+// that share the same device profile fingerprint.
+// Traversal: Transaction -> FROM_DEVICE -> DeviceProfile <- FROM_DEVICE <- Transaction <- MADE <- Card <- OWNS <- Customer
+// Also checks if the device appears in any historical ClosedCases.
+// Detects: Multi-card fraud syndicates, shared device rings, compromised devices across accounts.
+
+USE GRAPH FraudInvestigationGraph
+
+CREATE OR REPLACE QUERY device_neighbors_query(
+    VERTEX<Transaction> target_txn
+) FOR GRAPH FraudInvestigationGraph {
+
+    SumAccum<INT> @@connected_cards_count = 0;
+    SumAccum<INT> @@connected_customers_count = 0;
+    SumAccum<INT> @@connected_txns_count = 0;
+    SumAccum<INT> @@past_cases_count = 0;
+    SumAccum<FLOAT> @@total_connected_amount = 0.0;
+
+    Start = {target_txn};
+
+    // 1. Traverse to DeviceProfile from target transaction
+    Device = SELECT d FROM Start:t -(FROM_DEVICE:e)-> DeviceProfile:d;
+
+    // 2. Traverse back to all transactions using this same device profile
+    ConnectedTxns = SELECT t FROM Device:d -(<FROM_DEVICE:e)- Transaction:t
+                    ACCUM 
+                        @@connected_txns_count += 1,
+                        @@total_connected_amount += t.amount;
+
+    // 3. Traverse to all cards associated with these transactions
+    ConnectedCards = SELECT c FROM ConnectedTxns:t -(<MADE:e)- Card:c
+                     ACCUM @@connected_cards_count += 1;
+
+    // 4. Traverse to all customers owning these cards
+    ConnectedCustomers = SELECT cust FROM ConnectedCards:c -(<OWNS:e)- Customer:cust
+                         ACCUM @@connected_customers_count += 1;
+
+    // 5. Traverse to any historical closed cases involving these transactions or cards
+    RelatedCases = SELECT cs FROM ConnectedTxns:t -(<CASE_INVOLVES:e)- ClosedCase:cs
+                   ACCUM @@past_cases_count += 1;
+
+    // Output target transaction and device summary
+    PRINT target_txn.id AS target_txn_id,
+          @@connected_txns_count AS total_transactions_on_device,
+          @@connected_cards_count AS distinct_cards_on_device,
+          @@connected_customers_count AS distinct_customers_on_device,
+          @@past_cases_count AS historical_cases_on_device,
+          @@total_connected_amount AS total_volume_on_device;
+
+    PRINT Device[
+        Device.device_hash, 
+        Device.device_info, 
+        Device.device_type, 
+        Device.os, 
+        Device.browser, 
+        Device.screen_res, 
+        Device.proxy_status, 
+        Device.device_status
+    ];
+
+    PRINT ConnectedCards[
+        ConnectedCards.id,
+        ConnectedCards.card4,
+        ConnectedCards.card6,
+        ConnectedCards.status
+    ];
+
+    PRINT ConnectedCustomers[
+        ConnectedCustomers.id,
+        ConnectedCustomers.total_cards
+    ];
+
+    PRINT RelatedCases[
+        RelatedCases.case_id,
+        RelatedCases.outcome,
+        RelatedCases.pattern,
+        RelatedCases.exposure_usd,
+        RelatedCases.report_filed,
+        RelatedCases.analyst_notes
+    ];
+
+    PRINT ConnectedTxns[
+        ConnectedTxns.id,
+        ConnectedTxns.ts,
+        ConnectedTxns.amount,
+        ConnectedTxns.channel,
+        ConnectedTxns.risk_score
+    ] LIMIT 50;
+}

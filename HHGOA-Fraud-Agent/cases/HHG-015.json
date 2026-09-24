@@ -1,0 +1,156 @@
+{
+  "case_id": "HHG-015",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.68,
+    "pattern": "card_not_present_fraud",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3464869"
+    ],
+    "first_suspicious_txn_id": "3464869",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "DEV_8a33751c99615877"
+    ],
+    "exposure_usd": 599.94,
+    "evidence": [
+      {
+        "claim": "Historical precedent CC-3886: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-3886: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-09-23 and 2016-09-23 totaling $175.05 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari generic. Card blocked and reissued. Customer reimbursed.\"",
+        "source": "graph",
+        "ref": "case_memory:CC-3886",
+        "entity_ids": [
+          "CC-3886",
+          "C03042",
+          "C03042-K1"
+        ]
+      },
+      {
+        "claim": "Historical precedent CC-0615: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0615: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-07-16 and 2016-07-16 totaling $174.99 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\"",
+        "source": "graph",
+        "ref": "case_memory:CC-0615",
+        "entity_ids": [
+          "CC-0615",
+          "C03042",
+          "C03042-K1"
+        ]
+      },
+      {
+        "claim": "Historical precedent CC-1313: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1313: model scored a $100.08 transaction at 0.87. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+        "source": "graph",
+        "ref": "case_memory:CC-1313",
+        "entity_ids": [
+          "CC-1313",
+          "C03042",
+          "C03042-K1"
+        ]
+      },
+      {
+        "claim": "Transaction 3464869 amount $599.94 executed via online channel on card C03042-K1 for customer C03042 in billing region 327.0.",
+        "source": "graph",
+        "ref": "query:transaction_investigation_query",
+        "entity_ids": [
+          "3464869",
+          "C03042-K1",
+          "C03042"
+        ]
+      },
+      {
+        "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+        "source": "graph",
+        "ref": "query:card_window_query(card_id=)",
+        "entity_ids": [
+          ""
+        ]
+      },
+      {
+        "claim": "Online transaction operated from device profile DEV_8a33751c99615877 (Trident/7.0 | Windows 8.1 | ie 11.0 for desktop | ).",
+        "source": "graph",
+        "ref": "query:transaction_investigation_query",
+        "entity_ids": [
+          "DEV_8a33751c99615877"
+        ]
+      },
+      {
+        "claim": "Customer C03042 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+        "source": "graph",
+        "ref": "query:customer_history_query(customer=C03042)",
+        "entity_ids": [
+          "C03042"
+        ]
+      },
+      {
+        "claim": "Device DEV_8a33751c99615877 is shared across 0 distinct cards and 0 transactions.",
+        "source": "graph",
+        "ref": "query:device_neighbors_query",
+        "entity_ids": [
+          "DEV_8a33751c99615877"
+        ]
+      },
+      {
+        "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $599.94 transaction.",
+        "source": "customer",
+        "ref": "evidence_request:1",
+        "entity_ids": [
+          "C03042",
+          "C03042-K1"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0615",
+      "CC-1313",
+      "CC-3886"
+    ],
+    "summary": "Investigation of alert HHG-015 (risk_score) determined a fraud probability of 0.68 consistent with Card Not Present Fraud. Historical precedent CC-3886: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-3886: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-09-23 and 2016-09-23 totaling $175.05 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari generic. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-0615: Closed investigation with outcome 'confirmed_fraud' under pattern 'card_not_present_new_device'. Investigator notes: \"Case CC-0615: cardholder C03042 reported unrecognized activity on card C03042-K1. 1 transaction(s) between 2016-07-16 and 2016-07-16 totaling $174.99 were confirmed fraudulent. Online purchases from a device not previously seen on this account, inconsistent with the cardholder's history. Online transactions came from a iOS Device on mobile safari 11.0. Card blocked and reissued. Customer reimbursed.\" Historical precedent CC-1313: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-1313: model scored a $100.08 transaction at 0.87. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $599.94 transaction.). Total identified exposure is $599.94.",
+    "written_to_graph": true,
+    "graph_case_id": "CASE-2016-015"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 6,
+      "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $599.94 transaction."
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+      }
+    ],
+    "final": [
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+      },
+      {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+  "tool_calls": 6,
+  "tokens": 3150,
+  "latency_s": 3.191
+}

@@ -1,0 +1,142 @@
+{
+  "case_id": "HHG-010",
+  "status": "RESOLVED",
+  "created_at": "2026-09-20T12:52:48.411958+00:00",
+  "updated_at": "2026-09-20T12:52:48.411958+00:00",
+  "trigger_type": "risk_score",
+  "trigger_text": "Real-time model scored transaction 3506725 ($1,000.03, online) at 0.90. Review and decide.",
+  "flagged_txn_id": "3506725",
+  "customer_id": "C10434",
+  "card_id": "C10434-K1",
+  "verdict": "uncertain",
+  "fraud_probability": 0.68,
+  "risk_score": 0.9,
+  "fraud_pattern": "card_not_present_fraud",
+  "pattern_description": "",
+  "affected_txn_ids": [
+    "3506725"
+  ],
+  "first_suspicious_txn_id": "3506725",
+  "connected_card_ids": [],
+  "connected_device_profiles": [
+    "DEV_9fd230e98695a579"
+  ],
+  "exposure_usd": 1000.03,
+  "evidence": [
+    {
+      "claim": "Historical precedent CC-0873: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0873: model scored a $50.05 transaction at 0.93. Cardholder confirmed travel to the billing region in question. Alert cleared.\"",
+      "source": "graph",
+      "ref": "case_memory:CC-0873",
+      "entity_ids": [
+        "CC-0873",
+        "C10434",
+        "C10434-K1"
+      ]
+    },
+    {
+      "claim": "Transaction 3506725 amount $1000.03 executed via online channel on card C10434-K1 for customer C10434 in billing region 469.0.",
+      "source": "graph",
+      "ref": "query:transaction_investigation_query",
+      "entity_ids": [
+        "3506725",
+        "C10434-K1",
+        "C10434"
+      ]
+    },
+    {
+      "claim": "Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00.",
+      "source": "graph",
+      "ref": "query:card_window_query(card_id=)",
+      "entity_ids": [
+        ""
+      ]
+    },
+    {
+      "claim": "Customer C10434 holds 0 card(s). Historical baseline: 0 lifetime transactions totaling $0.00 (average $0.00/txn).",
+      "source": "graph",
+      "ref": "query:customer_history_query(customer=C10434)",
+      "entity_ids": [
+        "C10434"
+      ]
+    },
+    {
+      "claim": "Online transaction operated from device profile DEV_9fd230e98695a579 (Windows | Windows 10 | edge 16.0 | ).",
+      "source": "graph",
+      "ref": "query:transaction_investigation_query",
+      "entity_ids": [
+        "DEV_9fd230e98695a579"
+      ]
+    },
+    {
+      "claim": "Device DEV_9fd230e98695a579 is shared across 0 distinct cards and 0 transactions.",
+      "source": "graph",
+      "ref": "query:device_neighbors_query",
+      "entity_ids": [
+        "DEV_9fd230e98695a579"
+      ]
+    },
+    {
+      "claim": "Customer response to validation inquiry: SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $1000.03 transaction.",
+      "source": "customer",
+      "ref": "evidence_request:1",
+      "entity_ids": [
+        "C10434",
+        "C10434-K1"
+      ]
+    }
+  ],
+  "similar_prior_cases": [
+    "CC-0873"
+  ],
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 6,
+      "assumed_response": "SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $1000.03 transaction."
+    }
+  ],
+  "initial_next_best_action": [
+    {
+      "action": "VERIFY_WITH_CUSTOMER",
+      "route": "auto",
+      "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+    },
+    {
+      "action": "ESCALATE_TO_ANALYST",
+      "route": "auto",
+      "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+    }
+  ],
+  "final_next_best_action": [
+    {
+      "action": "VERIFY_WITH_CUSTOMER",
+      "route": "auto",
+      "reason": "R1: Probability 0.68 (< 0.70) rests on single/ambiguous signal; verify before blocking."
+    },
+    {
+      "action": "ESCALATE_TO_ANALYST",
+      "route": "auto",
+      "reason": "R8: Exposure exceeds $500 while verdict is uncertain; escalate for human analyst review."
+    }
+  ],
+  "what_changed": "nothing",
+  "approval_route": "auto",
+  "approval_status": "NOT_REQUIRED",
+  "approval_details": null,
+  "policy_rules_triggered": [],
+  "summary": "Investigation of alert HHG-010 (risk_score) determined a fraud probability of 0.68 consistent with Card Not Present Fraud. Historical precedent CC-0873: Closed investigation with outcome 'cleared' under pattern 'none'. Investigator notes: \"Case CC-0873: model scored a $50.05 transaction at 0.93. Cardholder confirmed travel to the billing region in question. Alert cleared.\" Transaction 3506725 amount $1000.03 executed via online channel on card C10434-K1 for customer C10434 in billing region 469.0. Card  24-hour window: 0 transactions totaling $0.00. 0 sub-$5 online micro-authorizations observed, with peak single amount $0.00. Verification request completed (SIMULATED TEST EVIDENCE: Customer contacted via SMS; denies authorizing $1000.03 transaction.). Total identified exposure is $1000.03.",
+  "explanation": "",
+  "sar_required": false,
+  "sar_status": "NOT_REQUIRED",
+  "sar_reference": {
+    "file": false,
+    "reason": "Policy thresholds for regulatory SAR filing not met; handled via internal case record only.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0.0,
+    "activity_dates": []
+  },
+  "stop_reason": "verification_response_settled: Direct customer verification received; policy actions definitively determined.",
+  "agent_version": "1.0.0",
+  "investigation_version": "phase6-v1"
+}

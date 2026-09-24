@@ -1,0 +1,63 @@
+{
+  "service": "CaseWritebackService & CaseReadbackService",
+  "implementation_files": [
+    "case_management/graph_writeback.py",
+    "case_management/graph_readback.py"
+  ],
+  "writeback_mode": "STAGED_LOCAL_GRAPH_MUTATION",
+  "writeback_storage": {
+    "vertex_file": "dataset/processed/dynamic_cases.csv",
+    "involves_edge_file": "dataset/processed/edges_case_involves.csv",
+    "on_card_edge_file": "dataset/processed/edges_case_on_card.csv"
+  },
+  "readback_verification_mechanism": "Inspects primary key existence in dynamic_cases.csv and counts incident edges connecting to flagged and affected transactions.",
+  "audited_sample_cases": [
+    {
+      "case_id": "HHG-001",
+      "writeback_status": "VERIFIED",
+      "vertex_exists": true,
+      "incident_edges": 1,
+      "verdict": "legitimate",
+      "exposure_usd": 0.0,
+      "approval_status": "NOT_REQUIRED"
+    },
+    {
+      "case_id": "HHG-003",
+      "writeback_status": "VERIFIED",
+      "vertex_exists": true,
+      "incident_edges": 2,
+      "verdict": "fraud",
+      "exposure_usd": 49.0,
+      "approval_status": "PENDING"
+    },
+    {
+      "case_id": "HHG-004",
+      "writeback_status": "VERIFIED",
+      "vertex_exists": true,
+      "incident_edges": 2,
+      "verdict": "fraud",
+      "exposure_usd": 128.33,
+      "approval_status": "PENDING"
+    },
+    {
+      "case_id": "HHG-014",
+      "writeback_status": "VERIFIED",
+      "vertex_exists": true,
+      "incident_edges": 1,
+      "verdict": "legitimate",
+      "exposure_usd": 0.0,
+      "approval_status": "NOT_REQUIRED"
+    },
+    {
+      "case_id": "HHG-020",
+      "writeback_status": "VERIFIED",
+      "vertex_exists": true,
+      "incident_edges": 1,
+      "verdict": "legitimate",
+      "exposure_usd": 0.0,
+      "approval_status": "NOT_REQUIRED"
+    }
+  ],
+  "overall_verification_rate": "20 / 20 (100.0%)",
+  "authenticity_finding": "Authentic graph mutations are performed and verified against the staged graph CSV tables. A live TigerGraph RESTPP write call is bypassed in favor of local staged persistence because no active live TigerGraph cluster was connected."
+}

@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "vertex_counts": {
+    "Transaction": 590742,
+    "Customer": 13553,
+    "Card": 24234,
+    "DeviceProfile": 9706,
+    "BillingRegion": 332,
+    "EmailDomain": 60,
+    "ClosedCase": 5565
+  },
+  "edge_counts": {
+    "OWNS": 24234,
+    "MADE": 590742,
+    "FROM_DEVICE": 144432,
+    "NEXT_TRANSACTION": 576264,
+    "CASE_INVOLVES": 14955,
+    "CASE_ON_CARD": 5565,
+    "CONNECTED_CARD": 92,
+    "BILLED_IN": 525003,
+    "PURCHASER_EMAIL": 496262,
+    "RECIPIENT_EMAIL": 137453
+  },
+  "integrity_checks": {
+    "Transaction_PrimaryID_Unique": true,
+    "Customer_PrimaryID_Unique": true,
+    "Card_PrimaryID_Unique": true,
+    "DeviceProfile_PrimaryID_Unique": true,
+    "BillingRegion_PrimaryID_Unique": true,
+    "EmailDomain_PrimaryID_Unique": true,
+    "ClosedCase_PrimaryID_Unique": true,
+    "OWNS_Referential_Integrity": true,
+    "MADE_Referential_Integrity": true,
+    "FROM_DEVICE_Referential_Integrity": true,
+    "CASE_INVOLVES_Referential_Integrity": true,
+    "CASE_ON_CARD_Referential_Integrity": true,
+    "In_Person_Transactions_Zero_Device_Records": true,
+    "Online_Identity_Exact_Match_144432": true,
+    "Zero_Orphan_Transactions": true
+  },
+  "errors": []
+}

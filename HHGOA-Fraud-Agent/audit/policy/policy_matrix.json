@@ -1,0 +1,102 @@
+[
+  {
+    "rule": "R1",
+    "name": "Verify Before Blocking on Ambiguous Signals",
+    "condition": "Fraud probability < 0.70 or single weak alert indicator",
+    "action": "VERIFY_WITH_CUSTOMER",
+    "approval": "AUTO",
+    "implementation": "agent/policy/policy_engine.py (lines 53-70)",
+    "test": "agent/tests/test_policy_engine.py::test_policy_r1_verify_before_block",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R2",
+    "name": "Confirmed Fraud Card Blocking & Case Creation",
+    "condition": "Fraud probability >= 0.70 or explicit customer denial of transaction",
+    "action": "BLOCK_CARD, CREATE_CASE",
+    "approval": "L1 (Exposure < $2,500) / L2 (Exposure >= $2,500)",
+    "implementation": "agent/policy/policy_engine.py (lines 72-88, 121-136)",
+    "test": "agent/tests/test_policy_engine.py::test_policy_r2_customer_denial",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R3",
+    "name": "Legitimate Activity Dismissal",
+    "condition": "Evidence confirms cardholder profile or customer confirms authorization",
+    "action": "CLOSE_NO_FRAUD",
+    "approval": "AUTO",
+    "implementation": "agent/policy/policy_engine.py (lines 24-33, 110-119)",
+    "test": "agent/tests/test_policy_engine.py",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R4",
+    "name": "Out-of-Region Anomaly Verification",
+    "condition": "Transaction billing region differs significantly from historical centroid",
+    "action": "VERIFY_WITH_CUSTOMER",
+    "approval": "AUTO",
+    "implementation": "agent/policy/policy_engine.py (lines 53-70)",
+    "test": "agent/tests/test_policy_engine.py",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R5",
+    "name": "Card Testing Rapid Sequence Mitigation",
+    "condition": "Sub-$5 micro-authorizations followed by sudden high-value velocity jump",
+    "action": "DECLINE_TRANSACTION, STEP_UP_AUTH",
+    "approval": "L1",
+    "implementation": "agent/policy/policy_engine.py (lines 35-51)",
+    "test": "agent/tests/test_policy_engine.py",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R6",
+    "name": "Syndicate & Shared Device Protective Monitoring",
+    "condition": "Device profile collisions connecting 3+ unrelated cards or customers",
+    "action": "MONITOR_CONNECTED_CARDS, FILE_REPORT",
+    "approval": "L2",
+    "implementation": "agent/policy/policy_engine.py (lines 138-156)",
+    "test": "agent/tests/test_policy_engine.py",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R7",
+    "name": "Account Takeover (ATO) Credential Restriction",
+    "condition": "Password/profile changes followed immediately by high-risk transactions from new device",
+    "action": "STEP_UP_AUTH, BLOCK_CARD",
+    "approval": "L2",
+    "implementation": "agent/policy/policy_engine.py (lines 138-147)",
+    "test": "agent/tests/test_policy_engine.py",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R8",
+    "name": "High-Value Exposure Human Escalation",
+    "condition": "Ambiguous alert with exposure > $500 or confirmed exposure >= $1,000",
+    "action": "ESCALATE_TO_ANALYST, FILE_REPORT",
+    "approval": "L2",
+    "implementation": "agent/policy/policy_engine.py (lines 62-69, 138-147)",
+    "test": "agent/tests/test_policy_engine.py::test_approval_routing",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R9",
+    "name": "Historical Fraud Pattern Recurrence",
+    "condition": "Graph match against confirmed fraud outcomes in 5,565 closed cases memory",
+    "action": "BLOCK_CARD, CREATE_CASE",
+    "approval": "L1 / L2",
+    "implementation": "agent/policy/policy_engine.py (lines 72-88)",
+    "test": "agent/tests/test_policy_engine.py",
+    "status": "VERIFIED"
+  },
+  {
+    "rule": "R10",
+    "name": "FinCEN Suspicious Activity Report (SAR) Mandate",
+    "condition": "Confirmed fraud exposure >= $1,000 or syndicate / ATO fraud typologies",
+    "action": "FILE_REPORT (Generate SAR Form 111)",
+    "approval": "L2 (Fraud Manager)",
+    "implementation": "agent/policy/policy_engine.py (lines 165-214) & sar/sar_generator.py",
+    "test": "tests/phase6/test_sar.py::test_sar_generation_mandated",
+    "status": "VERIFIED"
+  }
+]
