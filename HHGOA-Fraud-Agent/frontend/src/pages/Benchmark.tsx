@@ -6,11 +6,9 @@ import {
   RefreshCw,
   Database,
   ArrowUpRight,
-  Info,
   SlidersHorizontal,
   Terminal,
   ShieldCheck,
-  Zap,
 } from 'lucide-react';
 import { fetchBenchmarkReport } from '../api/benchmark';
 import type { BenchmarkReportData } from '../api/benchmark';
