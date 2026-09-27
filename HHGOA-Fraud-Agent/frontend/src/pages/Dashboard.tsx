@@ -10,6 +10,7 @@ import {
   TrendingUp,
   Activity,
   Terminal,
+  ShieldCheck,
 } from 'lucide-react';
 import { fetchDashboardSummary, fetchDashboardDistributions } from '../api/cases';
 import { KpiCard } from '../components/dashboard/KpiCard';
@@ -56,31 +57,39 @@ export const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 text-left min-h-screen bg-[#0B0F17] text-slate-200 p-6 font-sans">
-      {/* Header Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
-        <div>
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-sky-500/10 border border-sky-500/20 rounded-lg text-sky-400">
-              <Activity className="w-5 h-5" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-                FRAUD OPERATIONS COMMAND DASHBOARD
+    <div className="space-y-8 text-left min-h-screen bg-[#0B0F17] text-slate-200 p-6 font-sans">
+      {/* Executive Header Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/60 pb-6 pt-2">
+        <div className="flex items-center gap-4">
+          {/* Glowing Icon Container */}
+          <div className="p-3 bg-gradient-to-br from-sky-500/20 to-blue-600/10 border border-sky-500/30 rounded-2xl text-sky-400 shadow-lg shadow-sky-500/10">
+            <Activity className="w-6 h-6 animate-pulse" />
+          </div>
+
+          <div>
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+                Executive Fraud Intelligence
               </h1>
-              <p className="text-xs text-slate-400 mt-0.5 font-mono">
-                Real-time GSQL Graph Engine & Autonomous Agent Telemetry Stream
-              </p>
+              {/* Live Status Badge */}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                Live Agent Active
+              </span>
             </div>
+            <p className="text-sm text-slate-400 mt-1 font-normal">
+              Real-time threat monitoring, graph analytics, and autonomous risk detection
+            </p>
           </div>
         </div>
 
+        {/* Primary Action Button */}
         <button
           onClick={() => navigate('/investigate')}
-          className="px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all shadow-lg shadow-sky-600/20 inline-flex items-center gap-2 border border-sky-400/30"
+          className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 rounded-xl transition-all duration-200 shadow-lg shadow-sky-500/25 active:scale-95 inline-flex items-center gap-2 border border-sky-300/30 cursor-pointer"
         >
           <Search className="w-4 h-4" />
-          <span>LAUNCH INVESTIGATION</span>
+          <span>Launch New Investigation</span>
         </button>
       </div>
 
@@ -88,7 +97,7 @@ export const Dashboard: React.FC = () => {
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <Skeleton key={i} className="h-24 rounded-xl bg-slate-900 border border-slate-800" />
+            <Skeleton key={i} className="h-28 rounded-2xl bg-slate-900 border border-slate-800/80" />
           ))}
         </div>
       ) : (
@@ -132,7 +141,7 @@ export const Dashboard: React.FC = () => {
             label="Confirmed Fraud"
             value={summary?.fraud_investigations ?? 0}
             subtitle="Identified Typology Patterns"
-            icon={ShieldAlert}
+            icon={ShieldCheck}
             variant="red"
           />
           <KpiCard
@@ -154,48 +163,48 @@ export const Dashboard: React.FC = () => {
 
       {/* Analytics Visualization Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-xl backdrop-blur-md">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 shadow-xl backdrop-blur-md hover:border-slate-700/80 transition-all duration-300">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-5">
             <div>
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">Lifecycle Phase Distribution</h3>
-              <p className="text-[11px] text-slate-400 font-mono">Finite State Machine phase classification</p>
+              <h3 className="text-sm font-semibold text-slate-100 tracking-wide">Lifecycle Phase Distribution</h3>
+              <p className="text-xs text-slate-400 mt-0.5">Finite State Machine phase classification</p>
             </div>
             <Terminal className="w-4 h-4 text-slate-500" />
           </div>
-          {isLoading ? <Skeleton className="h-64 rounded bg-slate-800/50" /> : <CaseStatusChart data={dist?.cases_by_status || []} />}
+          {isLoading ? <Skeleton className="h-64 rounded-xl bg-slate-800/50" /> : <CaseStatusChart data={dist?.cases_by_status || []} />}
         </div>
 
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-xl backdrop-blur-md">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 shadow-xl backdrop-blur-md hover:border-slate-700/80 transition-all duration-300">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-5">
             <div>
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">Fraud Pattern Typologies</h3>
-              <p className="text-[11px] text-slate-400 font-mono">CNP, Stolen Card, Account Takeover breakdown</p>
+              <h3 className="text-sm font-semibold text-slate-100 tracking-wide">Fraud Pattern Typologies</h3>
+              <p className="text-xs text-slate-400 mt-0.5">CNP, Stolen Card, Account Takeover breakdown</p>
             </div>
             <Terminal className="w-4 h-4 text-slate-500" />
           </div>
-          {isLoading ? <Skeleton className="h-64 rounded bg-slate-800/50" /> : <PatternBarChart data={dist?.cases_by_pattern || []} />}
+          {isLoading ? <Skeleton className="h-64 rounded-xl bg-slate-800/50" /> : <PatternBarChart data={dist?.cases_by_pattern || []} />}
         </div>
 
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-xl backdrop-blur-md">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 shadow-xl backdrop-blur-md hover:border-slate-700/80 transition-all duration-300">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-5">
             <div>
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">Risk Severity Bands</h3>
-              <p className="text-[11px] text-slate-400 font-mono">High (≥0.70), Medium, and Low risk stratification</p>
+              <h3 className="text-sm font-semibold text-slate-100 tracking-wide">Risk Severity Bands</h3>
+              <p className="text-xs text-slate-400 mt-0.5">High (≥0.70), Medium, and Low risk stratification</p>
             </div>
             <Terminal className="w-4 h-4 text-slate-500" />
           </div>
-          {isLoading ? <Skeleton className="h-64 rounded bg-slate-800/50" /> : <RiskDistributionChart data={dist?.risk_distribution || []} />}
+          {isLoading ? <Skeleton className="h-64 rounded-xl bg-slate-800/50" /> : <RiskDistributionChart data={dist?.risk_distribution || []} />}
         </div>
 
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-xl backdrop-blur-md">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 shadow-xl backdrop-blur-md hover:border-slate-700/80 transition-all duration-300">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-5">
             <div>
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">Approval Hierarchy Breakdown</h3>
-              <p className="text-[11px] text-slate-400 font-mono">Auto execution vs Human Lead Escalation</p>
+              <h3 className="text-sm font-semibold text-slate-100 tracking-wide">Approval Hierarchy Breakdown</h3>
+              <p className="text-xs text-slate-400 mt-0.5">Auto execution vs Human Lead Escalation</p>
             </div>
             <Terminal className="w-4 h-4 text-slate-500" />
           </div>
-          {isLoading ? <Skeleton className="h-64 rounded bg-slate-800/50" /> : <ApprovalPieChart data={dist?.approval_distribution || []} />}
+          {isLoading ? <Skeleton className="h-64 rounded-xl bg-slate-800/50" /> : <ApprovalPieChart data={dist?.approval_distribution || []} />}
         </div>
       </div>
     </div>
